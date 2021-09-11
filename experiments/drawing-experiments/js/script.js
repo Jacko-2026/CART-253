@@ -21,7 +21,13 @@ function preload() {
 Description of setup
 */
 function setup() {
-  background(127, 255, 200);
+createCanvas(500,500);
+
+background(255,138,1);
+
+rectMode(CENTER);
+rect(250,250,100,100);
+rect(250,250,80,80);
 }
 
 
