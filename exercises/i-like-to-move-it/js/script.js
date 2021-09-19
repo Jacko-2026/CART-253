@@ -68,7 +68,6 @@ Description of setup
 */
 function setup() {
   createCanvas(500,500);
-  noStroke();
 }
 
 
@@ -117,7 +116,19 @@ function draw() {
   fill(bg.r+400,bg.g,bg.b+40);
   ellipse(circle2.x,circle2.y,circle2.size);
 
-  // Mouse
+  // Mouse Hover
   line(mouseX, 0, mouseX, 500);
+  line(0, mouseY, 500, mouseY);
 
+  // Triangle Hill
+  triangle(50, 750, 580, 200, 860, 750);
+  triangle(50, 500, 580, 200, 860, 750);
+
+}
+// Mouse Click
+function mousePressed() {
+  loop();
+}
+function mouseReleased() {
+  noLoop();
 }
