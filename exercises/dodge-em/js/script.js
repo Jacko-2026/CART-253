@@ -12,25 +12,30 @@ let covid19 = {
   y: 250,
   vx: 0,
   vy: 0,
-  speed: 5
+  speed: 5,
+  size: 100,
+  image: undefined
 };
 
 let user = {
   x: 250,
   y: 250,
-  size: 100,
   vx: 0,
   vy: 0,
   speed: 5,
-  fill: 255
+  size: 100,
+  image: undefined
 };
 
+let img;
 
 /**
 Description of preload
 */
 function preload() {
-  covid19 = loadImage('assets/images/Covid-19_2.gif')
+  img = loadImage('assets/images/HospitalFloor_01.jpg')
+  covid19.image = loadImage('assets/images/Covid-19_5.gif')
+  user.image = loadImage('assets/images/User_2.gif')
 }
 
 
@@ -68,15 +73,21 @@ function draw() {
     covid19.y = random(0,height);
   }
 
+ imageMode(CENTER);
+  image(covid19.image, covid19.x, covid19.y);
+
+  imageMode(CENTER);
+   image(user.image, user.x, user.y);
+
 // Catching Covid 19
   let d = dist(user.x,user.y,covid19.x,covid19.y);
   if (d < covid19.size/2 + user.size/2) {
-    noLoop();
+    user.image = loadImage ('assets/images/UserDead_1.gif')
   }
 
   handleInput();
   move();
-  display();
+
 }
 
 // User Movement
@@ -106,8 +117,9 @@ function move() {
   user.y = user.y + user.vy;
 }
 
-// Display User
-function display() {
-  fill(user.fill);
-  ellipse(user.x,user.y,user.size);
+function handleInput() {
+  if (keyIsPressed(ENTER)) {
+    user.reset();
+    covid19.reset();
+  }
 }
