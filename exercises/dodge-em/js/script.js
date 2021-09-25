@@ -10,15 +10,9 @@ Improvement/change ofthe COVID-19 “simulation” activity with a new interacti
 let covid19 = {
   x: 0,
   y: 250,
-  size: 100,
   vx: 0,
   vy: 0,
-  speed: 5,
-  fill: {
-    r: 255,
-    g: 0,
-    b: 0
-  }
+  speed: 5
 };
 
 let user = {
@@ -36,7 +30,7 @@ let user = {
 Description of preload
 */
 function preload() {
-
+  covid19 = loadImage('assets/images/Covid-19_2.gif')
 }
 
 
@@ -74,6 +68,17 @@ function draw() {
     covid19.y = random(0,height);
   }
 
+// Catching Covid 19
+  let d = dist(user.x,user.y,covid19.x,covid19.y);
+  if (d < covid19.size/2 + user.size/2) {
+    noLoop();
+  }
+
+  handleInput();
+  move();
+  display();
+}
+
 // User Movement
 function handleInput() {
   if (keyIsDown(LEFT_ARROW)) {
@@ -101,17 +106,8 @@ function move() {
   user.y = user.y + user.vy;
 }
 
-// Catching Covid 19
-  let d = dist(user.x,user.y,covid19.x,covid19.y);
-  if (d < covid19.size/2 + user.size/2) {
-    noLoop();
-  }
-
-// Display Covid 19
-  fill(covid19.fill.r,covid19.fill.g,covid19.fill.b);
-  ellipse(covid19.x,covid19.y,covid19.size);
-
 // Display User
+function display() {
   fill(user.fill);
   ellipse(user.x,user.y,user.size);
 }
