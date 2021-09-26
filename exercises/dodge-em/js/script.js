@@ -49,7 +49,6 @@ function setup() {
   covid19.vx = covid19.speed;
 }
 
-
 /**
 Description of draw()
 */
@@ -83,6 +82,7 @@ function draw() {
   let d = dist(user.x,user.y,covid19.x,covid19.y);
   if (d < covid19.size/2 + user.size/2) {
     user.image = loadImage ('assets/images/UserDead_1.gif')
+    user.speed = 1
   }
 
   handleInput();
@@ -115,11 +115,4 @@ function handleInput() {
 function move() {
   user.x = user.x + user.vx;
   user.y = user.y + user.vy;
-}
-
-function handleInput() {
-  if (keyIsPressed(ENTER)) {
-    user.reset();
-    covid19.reset();
-  }
 }
