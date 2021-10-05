@@ -1,3 +1,4 @@
+// User (Playable )
 let circle1 = {
   x: undefined,
   y: 250,
@@ -8,6 +9,7 @@ let circle1 = {
   image: undefined
 };
 
+// Comp (Computer)
 let circle2 = {
   x: undefined,
   y: 250,
@@ -142,6 +144,7 @@ function checkOverlap() {
 }
 
 function keyTyped() {
+  // Check if "NO" is typed to trigger SECRET Ending
   if (key === 'no'); {
     state = 'secret'
   }
