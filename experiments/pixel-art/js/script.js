@@ -15,12 +15,6 @@ let menu = {
   height: 680
 }
 
-let paintBrush = {
-  x:undefined,
-  y:undefined,
-  size:20
-}
-
 let redPaint = {
   x:560,
   y:20,
@@ -39,6 +33,12 @@ let whitePaint = {
 
 }
 
+let paintBrush = {
+  x:undefined,
+  y:undefined,
+  size:20
+}
+
 /**
 Description of setup
 */
@@ -54,9 +54,6 @@ Description of draw()
 function draw() {
   background(0);
 
-  square(paintBrush.x,paintBrush.y,paintBrush.size);
-  paintBrush.x = mouseX;
-  paintBrush.y = mouseY;
 
 // Menu Bar for Paint Selection
 push();
@@ -72,4 +69,8 @@ push();
   noStroke(0);
   square(redPaint.x, redPaint.y, redPaint.size);
 pop();
+
+square(paintBrush.x,paintBrush.y,paintBrush.size);
+paintBrush.x = mouseX;
+paintBrush.y = mouseY;
 }
