@@ -36,7 +36,8 @@ let whitePaint = {
 let paintBrush = {
   x:undefined,
   y:undefined,
-  size:20
+  size:20,
+  fill: (255, 255, 255)
 }
 
 /**
@@ -53,6 +54,7 @@ Description of draw()
 */
 function draw() {
   background(0);
+
 
 
 // Menu Bar for Paint Selection
@@ -73,4 +75,12 @@ pop();
 square(paintBrush.x,paintBrush.y,paintBrush.size);
 paintBrush.x = mouseX;
 paintBrush.y = mouseY;
+}
+
+
+function mouseClicked() {
+  let dR = dist(mouseX, mouseY, redPaint.x, redPaint.y);
+  if (dR < redPaint.size / 2) {
+  paintBrush.fill = (252, 23, 3);
+  }
 }
