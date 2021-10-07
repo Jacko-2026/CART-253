@@ -52,7 +52,7 @@ let enemy3 = {
 };
 
 let user = {
-  x: 700,
+  x: 500,
   y: 50,
   vx: 0,
   vy: 0,
@@ -62,7 +62,7 @@ let user = {
 };
 
 let questItem = {
-  x: 700,
+  x: 500,
   y: 900,
   size: 50,
   fill:{
@@ -75,7 +75,7 @@ let questItem = {
 let state = 'title';  // Can be title, simulation, level 1, level 2, etc
 
 function setup() {
-  createCanvas(windowWidth, windowHeight);
+  createCanvas(1000, 1000);
 
   enemy1.vx = enemy1.speed;
   enemy2.vx = enemy2.speed;
@@ -96,6 +96,12 @@ function draw() {
   }
   else if (state === 'level1') {
     level1();
+  }
+  else if (state === 'level2Vic') {
+    level2Vic();
+  }
+  else if (state === 'level2') {
+    level2();
   }
 
 // Enemy movement
@@ -136,11 +142,9 @@ function draw() {
   if (d3 < enemy3.size / 2 + user.size / 2) {
     noLoop();
   }
-  // User
-  let dQ = dist(user.x, user.y, questItem.x, questItem.y);
-  if (dQ < questItem.size / 2 + user.size / 2) {
-    state = 'level1Vic';
-  }
+
+  user.x = constrain(user.x, 0, width);
+  user.y = constrain(user.y, 0, height);
 
   handleInput();
   move();
@@ -164,30 +168,64 @@ function level1Vic() {
   pop();
 }
 
-function level1() {
-  move();
-  display1();
-  display2(); // Second Display
-  questItem.y = 100
+function level2Vic() {
+  push();
+  textSize(64);
+  fill(200,100,100);
+  textAlign(CENTER,CENTER);
+  text('LEVEL 2: COMPLETE!',width/2,height/2);
+  pop();
 }
 
 function simulation() {
   move();
   display1();
+  // Quest Item
+  let dQ = dist(user.x, user.y, questItem.x, questItem.y);
+  if (dQ < questItem.size / 2 + user.size / 2) {
+    state = 'level1Vic';
+  }
+}
+
+function level1() {
+  move();
+  display1();
+  display2(); // Second Display
+  questItem.y = 100
+  // Quest Item
+  let dQ = dist(user.x, user.y, questItem.x, questItem.y);
+  if (dQ < questItem.size / 2 + user.size / 2) {
+    state = 'level2Vic';
+  }
+}
+
+function level2() {
+  move();
+  display1();
+  display2(); // Second Display
+  questItem.y = 900
+  // Quest Item
+  let dQ = dist(user.x, user.y, questItem.x, questItem.y);
+  if (dQ < questItem.size / 2 + user.size / 2) {
+    state = 'level1Vic';
+  }
 }
 
 function mousePressed() {
   if (state === 'title') {
     state = 'simulation';
   }
-  if (state === 'level1Vic')
-    state = 'level1';
-
+  if (state === 'level1Vic') {
+        state = 'level1';
+  }
+  if (state === 'level2Vic') {
+        state = 'level2';
+  }
 }
 
 function display1() {
 
-    // Display enemy1 and 2
+    // Display enemy 1 & 2
     fill(enemy1.fill.r, enemy1.fill.g, enemy1.fill.b);
     ellipse(enemy1.x, enemy1.y, enemy1.size);
     fill(enemy2.fill.r, enemy2.fill.g, enemy2.fill.b);
@@ -203,8 +241,8 @@ function display1() {
 }
 
 function display2() {
-  fill(enemy3.fill.r, enemy3.fill.g, enemy3.fill.b);
-  ellipse(enemy3.x, enemy3.y, enemy3.size);
+      fill(enemy3.fill.r, enemy3.fill.g, enemy3.fill.b);
+      ellipse(enemy3.x, enemy3.y, enemy3.size);
 }
 
   // User Movement
