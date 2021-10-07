@@ -37,6 +37,20 @@ let enemy2 = {
   }
 };
 
+let enemy3 = {
+  x: 0,
+  y: 450,
+  size: 100,
+  vx: 0,
+  vy: 0,
+  speed: 10,
+  fill: {
+    r: 255,
+    g: 0,
+    b: 0
+  }
+};
+
 let user = {
   x: 700,
   y: 50,
@@ -47,13 +61,25 @@ let user = {
   fill: 255
 };
 
-let state = 'title';
+let questItem = {
+  x: 700,
+  y: 900,
+  size: 50,
+  fill:{
+    r: 0,
+    g: 0,
+    b: 255
+  }
+}
+
+let state = 'title';  // Can be title, simulation, level 1, level 2, etc
 
 function setup() {
   createCanvas(windowWidth, windowHeight);
 
   enemy1.vx = enemy1.speed;
   enemy2.vx = enemy2.speed;
+  enemy3.vx = enemy3.speed;
 }
 
 function draw() {
@@ -65,12 +91,23 @@ function draw() {
   else if (state === 'simulation') {
     simulation();
   }
+  else if (state === 'level1Vic') {
+    level1Vic();
+  }
+  else if (state === 'level1') {
+    level1();
+  }
 
-  // Covid 19 movement
+// Enemy movement
+  // Enemy 1
   enemy1.x = enemy1.x + enemy1.vx;
   enemy1.y = enemy1.y + enemy1.vy;
+  // Enemy 2
   enemy2.x = enemy2.x + enemy2.vx;
   enemy2.y = enemy2.y + enemy2.vy;
+  // Enemy 3
+  enemy3.x = enemy3.x + enemy3.vx;
+  enemy3.y = enemy3.y + enemy3.vy;
 
   if (enemy1.x > width) {
     enemy1.x = 0;
@@ -79,51 +116,95 @@ function draw() {
     enemy2.x = 0;
   }
 
-  // Check for catching covid19
+  if (enemy3.x > width) {
+    enemy3.x = 0;
+  }
+
+// Check for getting caught
+  // Enemy 1
   let d1 = dist(user.x, user.y, enemy1.x, enemy1.y);
   if (d1 < enemy1.size / 2 + user.size / 2) {
     noLoop();
   }
+  // Enemy 2
   let d2 = dist(user.x, user.y, enemy2.x, enemy2.y);
   if (d2 < enemy2.size / 2 + user.size / 2) {
     noLoop();
   }
-
-  function title() {
-    push();
-    textSize(64);
-    fill(200,100,100);
-    textAlign(CENTER,CENTER);
-    text('START',width/2,height/2);
-    pop();
+  // Enemy 3
+  let d3 = dist(user.x, user.y, enemy3.x, enemy3.y);
+  if (d3 < enemy3.size / 2 + user.size / 2) {
+    noLoop();
   }
-
-  function simulation() {
-    move();
-    display();
+  // User
+  let dQ = dist(user.x, user.y, questItem.x, questItem.y);
+  if (dQ < questItem.size / 2 + user.size / 2) {
+    state = 'level1Vic';
   }
 
   handleInput();
   move();
 }
 
-function mousePressed() {
-  if (state = 'title') {
-    state = 'simulation';
-  }
+function title() {
+  push();
+  textSize(64);
+  fill(200,100,100);
+  textAlign(CENTER,CENTER);
+  text('START',width/2,height/2);
+  pop();
 }
 
-function display() {
+function level1Vic() {
+  push();
+  textSize(64);
+  fill(200,100,100);
+  textAlign(CENTER,CENTER);
+  text('LEVEL 1: COMPLETE!',width/2,height/2);
+  pop();
+}
 
-    // Display covid 19
+function level1() {
+  move();
+  display1();
+  display2(); // Second Display
+  questItem.y = 100
+}
+
+function simulation() {
+  move();
+  display1();
+}
+
+function mousePressed() {
+  if (state === 'title') {
+    state = 'simulation';
+  }
+  if (state === 'level1Vic')
+    state = 'level1';
+
+}
+
+function display1() {
+
+    // Display enemy1 and 2
     fill(enemy1.fill.r, enemy1.fill.g, enemy1.fill.b);
     ellipse(enemy1.x, enemy1.y, enemy1.size);
     fill(enemy2.fill.r, enemy2.fill.g, enemy2.fill.b);
     ellipse(enemy2.x, enemy2.y, enemy2.size);
 
+    // Display Quest Item
+    fill(questItem.fill.r, questItem.fill.g, questItem.fill.b);
+    square(questItem.x,questItem.y,questItem.size);
+
     // Display user
     fill(user.fill);
     ellipse(user.x, user.y, user.size);
+}
+
+function display2() {
+  fill(enemy3.fill.r, enemy3.fill.g, enemy3.fill.b);
+  ellipse(enemy3.x, enemy3.y, enemy3.size);
 }
 
   // User Movement
