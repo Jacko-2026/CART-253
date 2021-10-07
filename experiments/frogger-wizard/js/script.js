@@ -332,13 +332,13 @@ function display3() {
 }
 
   function keyPressed() {
-    if (keyCode === 'Numpad1') {
+    if (key === '1') {
           state = 'level1';
     }
-    if (keyCode === 'Numpad2') {
+    if (key === '2') {
           state = 'level2';
     }
-    if (keyCode === 'Numpad3') {
+    if (key === '3') {
           state = 'level3';
     }
   }
