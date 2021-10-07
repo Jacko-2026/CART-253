@@ -51,6 +51,20 @@ let enemy3 = {
   }
 };
 
+let enemy4 = {
+  x: 0,
+  y: 750,
+  size: 100,
+  vx: 0,
+  vy: 0,
+  speed: 5,
+  fill: {
+    r: 255,
+    g: 0,
+    b: 0
+  }
+};
+
 let user = {
   x: 500,
   y: 50,
@@ -83,6 +97,7 @@ function setup() {
   enemy1.vx = enemy1.speed;
   enemy2.vx = enemy2.speed;
   enemy3.vx = enemy3.speed;
+  enemy4.vx = enemy4.speed;
 }
 
 function draw() {
@@ -129,6 +144,10 @@ function draw() {
     enemy3.x = 0;
   }
 
+  if (enemy4.x > width) {
+    enemy4.x = 0;
+  }
+
 // Check for getting caught
   // Enemy 1
   let d1 = dist(user.x, user.y, enemy1.x, enemy1.y);
@@ -143,6 +162,11 @@ function draw() {
   // Enemy 3
   let d3 = dist(user.x, user.y, enemy3.x, enemy3.y);
   if (d3 < enemy3.size / 2 + user.size / 2) {
+    noLoop();
+  }
+  // Enemy 3
+  let d4 = dist(user.x, user.y, enemy4.x, enemy4.y);
+  if (d4 < enemy4.size / 2 + user.size / 2) {
     noLoop();
   }
 
@@ -215,6 +239,7 @@ function level3() {
   move();
   display1();
   display2(); // Second Display
+  display3(); // Third Display
   questItem.y = 900
   // Quest Item
   let dQ = dist(user.x, user.y, questItem.x, questItem.y);
@@ -264,6 +289,15 @@ function display2() {
       enemy3.y = enemy3.y + enemy3.vy;
 }
 
+function display3() {
+      fill(enemy4.fill.r, enemy4.fill.g, enemy4.fill.b);
+      ellipse(enemy4.x, enemy4.y, enemy4.size);
+
+      // Enemy 3
+      enemy4.x = enemy4.x + enemy4.vx;
+      enemy4.y = enemy4.y + enemy4.vy;
+}
+
   // User Movement
   function handleInput() {
     if (keyIsDown(RIGHT_ARROW)) {
@@ -296,3 +330,15 @@ function display2() {
   user.x = user.x + user.vx;
   user.y = user.y + user.vy;
 }
+
+  function keyPressed() {
+    if (keyCode === 'Numpad1') {
+          state = 'level1';
+    }
+    if (keyCode === 'Numpad2') {
+          state = 'level2';
+    }
+    if (keyCode === 'Numpad3') {
+          state = 'level3';
+    }
+  }
