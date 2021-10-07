@@ -56,10 +56,13 @@ let user = {
   y: 50,
   vx: 0,
   vy: 0,
+  inputThreshold: 0,
   speed: 5,
   size: 90,
   fill: 255
 };
+
+let unit = 50;  // For user movement
 
 let questItem = {
   x: 500,
@@ -72,7 +75,7 @@ let questItem = {
   }
 }
 
-let state = 'title';  // Can be title, simulation, level 1, level 2, etc
+let state = 'title';  // Can be title, level 1, level 2, level 3, etc
 
 function setup() {
   createCanvas(1000, 1000);
@@ -88,20 +91,23 @@ function draw() {
   if (state === 'title') {
     title();
   }
-  else if (state === 'simulation') {
-    simulation();
+  else if (state === 'level1') {
+    level1();
   }
   else if (state === 'level1Vic') {
     level1Vic();
   }
-  else if (state === 'level1') {
-    level1();
+  else if (state === 'level2') {
+    level2();
   }
   else if (state === 'level2Vic') {
     level2Vic();
   }
-  else if (state === 'level2') {
-    level2();
+  else if (state === 'level3') {
+    level3();
+  }
+  else if (state === 'level3Vic') {
+    level3Vic();
   }
 
 // Enemy movement
@@ -111,9 +117,6 @@ function draw() {
   // Enemy 2
   enemy2.x = enemy2.x + enemy2.vx;
   enemy2.y = enemy2.y + enemy2.vy;
-  // Enemy 3
-  enemy3.x = enemy3.x + enemy3.vx;
-  enemy3.y = enemy3.y + enemy3.vy;
 
   if (enemy1.x > width) {
     enemy1.x = 0;
@@ -177,7 +180,16 @@ function level2Vic() {
   pop();
 }
 
-function simulation() {
+function level3Vic() {
+  push();
+  textSize(64);
+  fill(200,100,100);
+  textAlign(CENTER,CENTER);
+  text('LEVEL 3: COMPLETE!',width/2,height/2);
+  pop();
+}
+
+function level1() {
   move();
   display1();
   // Quest Item
@@ -187,7 +199,7 @@ function simulation() {
   }
 }
 
-function level1() {
+function level2() {
   move();
   display1();
   display2(); // Second Display
@@ -199,7 +211,7 @@ function level1() {
   }
 }
 
-function level2() {
+function level3() {
   move();
   display1();
   display2(); // Second Display
@@ -207,19 +219,22 @@ function level2() {
   // Quest Item
   let dQ = dist(user.x, user.y, questItem.x, questItem.y);
   if (dQ < questItem.size / 2 + user.size / 2) {
-    state = 'level1Vic';
+    state = 'level3Vic';
   }
 }
 
 function mousePressed() {
   if (state === 'title') {
-    state = 'simulation';
+    state = 'level1';
   }
   if (state === 'level1Vic') {
-        state = 'level1';
+        state = 'level2';
   }
   if (state === 'level2Vic') {
-        state = 'level2';
+        state = 'level3';
+  }
+  if (state === 'level3Vic') {
+        state = 'level4';
   }
 }
 
@@ -243,28 +258,38 @@ function display1() {
 function display2() {
       fill(enemy3.fill.r, enemy3.fill.g, enemy3.fill.b);
       ellipse(enemy3.x, enemy3.y, enemy3.size);
+
+      // Enemy 3
+      enemy3.x = enemy3.x + enemy3.vx;
+      enemy3.y = enemy3.y + enemy3.vy;
 }
 
   // User Movement
   function handleInput() {
+    if (keyIsDown(RIGHT_ARROW)) {
+        user.inputThreshold += 0.05;}
+        if (user.inputThreshold >= 1) {
+          user.x += unit;
+          user.inputThreshold = 0;
+        }
     if (keyIsDown(LEFT_ARROW)) {
-      user.vx = -user.speed;
-    }
-    else if (keyIsDown(RIGHT_ARROW)) {
-      user.vx = user.speed;
-    }
-    else {
-      user.vx = 0
-    }
+        user.inputThreshold += 0.05;}
+        if (user.inputThreshold >= 1) {
+          user.x += -unit;
+          user.inputThreshold = 0;
+        }
     if (keyIsDown(UP_ARROW)) {
-      user.vy = -user.speed;
-    }
-    else if (keyIsDown(DOWN_ARROW)) {
-      user.vy = user.speed;
-    }
-    else {
-      user.vy = 0;
-    }
+        user.inputThreshold += 0.05;}
+        if (user.inputThreshold >= 1) {
+          user.y += -unit;
+          user.inputThreshold = 0;
+        }
+    if (keyIsDown(DOWN_ARROW)) {
+        user.inputThreshold += 0.05;}
+        if (user.inputThreshold >= 1) {
+          user.y += unit;
+          user.inputThreshold = 0;
+        }
   }
 
   function move() {
