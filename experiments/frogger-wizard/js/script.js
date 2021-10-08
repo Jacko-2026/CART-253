@@ -122,11 +122,11 @@ function preload() {
   lake.image = loadImage('assets/images/BACKGROUND.jpg')
   user.image = loadImage('assets/images/ToadBoy_03.gif')
   questItem.image = loadImage('assets/images/FLY_02.png')
-  enemy1.image = loadImage('assets/images/LOG.png')
-  enemy2.image = loadImage('assets/images/LOG.png')
-  enemy3.image = loadImage('assets/images/LOG.png')
-  enemy4.image = loadImage('assets/images/LOG.png')
-  enemy5.image = loadImage('assets/images/LOG.png')
+  enemy1.image = loadImage('assets/images/LOG_03.png')
+  enemy2.image = loadImage('assets/images/LOG_03.png')
+  enemy3.image = loadImage('assets/images/LOG_03.png')
+  enemy4.image = loadImage('assets/images/LOG_03.png')
+  enemy5.image = loadImage('assets/images/LOG_03.png')
 }
 
 function setup() {
