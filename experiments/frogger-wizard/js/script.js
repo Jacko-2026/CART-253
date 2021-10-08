@@ -9,6 +9,13 @@ author, and this description to match your project!
 "use strict";
 
 
+let lake = {
+  x: 500,
+  y: 500,
+  size: 100,
+  image: undefined
+}
+
 let enemy1 = {
   x: 0,
   y: 250,
@@ -20,7 +27,8 @@ let enemy1 = {
     r: 255,
     g: 0,
     b: 0
-  }
+  },
+    image: undefined
 };
 
 let enemy2 = {
@@ -48,7 +56,8 @@ let enemy3 = {
     r: 255,
     g: 0,
     b: 0
-  }
+  },
+    image: undefined
 };
 
 let enemy4 = {
@@ -62,7 +71,8 @@ let enemy4 = {
     r: 255,
     g: 0,
     b: 0
-  }
+  },
+    image: undefined
 };
 
 let enemy5 = {
@@ -76,7 +86,8 @@ let enemy5 = {
     r: 255,
     g: 0,
     b: 0
-  }
+  },
+    image: undefined
 };
 
 let user = {
@@ -87,7 +98,8 @@ let user = {
   inputThreshold: 0,
   speed: 5,
   size: 90,
-  fill: 255
+  fill: 255,
+    image: undefined
 };
 
 let unit = 50;  // For user movement
@@ -100,10 +112,22 @@ let questItem = {
     r: 0,
     g: 0,
     b: 255
-  }
+  },
+    image: undefined
 }
 
 let state = 'title';  // Can be title, level 1, level 2, level 3, etc
+
+function preload() {
+  lake.image = loadImage('assets/images/BACKGROUND.jpg')
+  user.image = loadImage('assets/images/ToadBoy_03.gif')
+  questItem.image = loadImage('assets/images/FLY_02.png')
+  enemy1.image = loadImage('assets/images/LOG.png')
+  enemy2.image = loadImage('assets/images/LOG.png')
+  enemy3.image = loadImage('assets/images/LOG.png')
+  enemy4.image = loadImage('assets/images/LOG.png')
+  enemy5.image = loadImage('assets/images/LOG.png')
+}
 
 function setup() {
   createCanvas(1000, 1000);
@@ -116,7 +140,8 @@ function setup() {
 }
 
 function draw() {
-  background(0);
+  imageMode(CENTER);
+    image(lake.image, lake.x, lake.y);
 
   if (state === 'title') {
     title();
@@ -205,7 +230,7 @@ function draw() {
 
 function title() {
   push();
-  textSize(64);
+  textSize(100);
   fill(200,100,100);
   textAlign(CENTER,CENTER);
   text('START',width/2,height/2);
@@ -314,45 +339,45 @@ function mousePressed() {
 function display1() {
 
     // Display enemy 1 & 2
-    fill(enemy1.fill.r, enemy1.fill.g, enemy1.fill.b);
-    ellipse(enemy1.x, enemy1.y, enemy1.size);
-    fill(enemy2.fill.r, enemy2.fill.g, enemy2.fill.b);
-    ellipse(enemy2.x, enemy2.y, enemy2.size);
+    imageMode(CENTER);
+      image(enemy1.image, enemy1.x, enemy1.y);
+    imageMode(CENTER);
+      image(enemy2.image, enemy2.x, enemy2.y);
 
     // Display Quest Item
-    fill(questItem.fill.r, questItem.fill.g, questItem.fill.b);
-    square(questItem.x,questItem.y,questItem.size);
+    imageMode(CENTER);
+      image(questItem.image, questItem.x, questItem.y);
 
     // Display user
-    fill(user.fill);
-    ellipse(user.x, user.y, user.size);
+    imageMode(CENTER);
+      image(user.image, user.x, user.y);
 }
 
 function display2() {
-      fill(enemy3.fill.r, enemy3.fill.g, enemy3.fill.b);
-      ellipse(enemy3.x, enemy3.y, enemy3.size);
+  imageMode(CENTER);
+    image(enemy3.image, enemy3.x, enemy3.y);
 
-      // Enemy 3
-      enemy3.x = enemy3.x + enemy3.vx;
-      enemy3.y = enemy3.y + enemy3.vy;
+    // Enemy 3
+    enemy3.x = enemy3.x + enemy3.vx;
+    enemy3.y = enemy3.y + enemy3.vy;
 }
 
 function display3() {
-      fill(enemy4.fill.r, enemy4.fill.g, enemy4.fill.b);
-      ellipse(enemy4.x, enemy4.y, enemy4.size);
+  imageMode(CENTER);
+    image(enemy4.image, enemy4.x, enemy4.y);
 
-      // Enemy 3
-      enemy4.x = enemy4.x + enemy4.vx;
-      enemy4.y = enemy4.y + enemy4.vy;
+    // Enemy 4
+    enemy4.x = enemy4.x + enemy4.vx;
+    enemy4.y = enemy4.y + enemy4.vy;
 }
 
 function display4() {
-      fill(enemy5.fill.r, enemy5.fill.g, enemy5.fill.b);
-      ellipse(enemy5.x, enemy5.y, enemy5.size);
+  imageMode(CENTER);
+    image(enemy5.image, enemy5.x, enemy5.y);
 
-      // Enemy 3
-      enemy5.x = enemy5.x + enemy5.vx;
-      enemy5.y = enemy5.y + enemy5.vy;
+    // Enemy 5
+    enemy5.x = enemy5.x + enemy5.vx;
+    enemy5.y = enemy5.y + enemy5.vy;
 }
 
   // User Movement
