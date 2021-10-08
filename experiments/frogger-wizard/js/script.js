@@ -65,6 +65,20 @@ let enemy4 = {
   }
 };
 
+let enemy5 = {
+  x: 0,
+  y: 250,
+  size: 100,
+  vx: 0,
+  vy: 0,
+  speed: 5,
+  fill: {
+    r: 255,
+    g: 0,
+    b: 0
+  }
+};
+
 let user = {
   x: 500,
   y: 50,
@@ -98,6 +112,7 @@ function setup() {
   enemy2.vx = enemy2.speed;
   enemy3.vx = enemy3.speed;
   enemy4.vx = enemy4.speed;
+  enemy5.vx = enemy5.speed;
 }
 
 function draw() {
@@ -124,6 +139,12 @@ function draw() {
   else if (state === 'level3Vic') {
     level3Vic();
   }
+  else if (state === 'level4') {
+    level4();
+  }
+  else if (state === 'level4Vic') {
+    level4Vic();
+  }
 
 // Enemy movement
   // Enemy 1
@@ -132,20 +153,20 @@ function draw() {
   // Enemy 2
   enemy2.x = enemy2.x + enemy2.vx;
   enemy2.y = enemy2.y + enemy2.vy;
-
   if (enemy1.x > width) {
     enemy1.x = 0;
   }
   if (enemy2.x > width) {
     enemy2.x = 0;
   }
-
   if (enemy3.x > width) {
     enemy3.x = 0;
   }
-
   if (enemy4.x > width) {
     enemy4.x = 0;
+  }
+  if (enemy5.x > width) {
+    enemy5.x = 0;
   }
 
 // Check for getting caught
@@ -164,9 +185,14 @@ function draw() {
   if (d3 < enemy3.size / 2 + user.size / 2) {
     noLoop();
   }
-  // Enemy 3
+  // Enemy 4
   let d4 = dist(user.x, user.y, enemy4.x, enemy4.y);
   if (d4 < enemy4.size / 2 + user.size / 2) {
+    noLoop();
+  }
+  // Enemy 5
+  let d5 = dist(user.x, user.y, enemy5.x, enemy5.y);
+  if (d5 < enemy5.size / 2 + user.size / 2) {
     noLoop();
   }
 
@@ -213,6 +239,15 @@ function level3Vic() {
   pop();
 }
 
+function level4Vic() {
+  push();
+  textSize(64);
+  fill(200,100,100);
+  textAlign(CENTER,CENTER);
+  text('LEVEL 4: COMPLETE!',width/2,height/2);
+  pop();
+}
+
 function level1() {
   move();
   display1();
@@ -245,6 +280,19 @@ function level3() {
   let dQ = dist(user.x, user.y, questItem.x, questItem.y);
   if (dQ < questItem.size / 2 + user.size / 2) {
     state = 'level3Vic';
+  }
+}
+function level4() {
+  move();
+  display1();
+  display2(); // Second Display
+  display3(); // Third Display
+  display4(); // Fourth Display
+  questItem.y = 100
+  // Quest Item
+  let dQ = dist(user.x, user.y, questItem.x, questItem.y);
+  if (dQ < questItem.size / 2 + user.size / 2) {
+    state = 'level4Vic';
   }
 }
 
@@ -298,6 +346,15 @@ function display3() {
       enemy4.y = enemy4.y + enemy4.vy;
 }
 
+function display4() {
+      fill(enemy5.fill.r, enemy5.fill.g, enemy5.fill.b);
+      ellipse(enemy5.x, enemy5.y, enemy5.size);
+
+      // Enemy 3
+      enemy5.x = enemy5.x + enemy5.vx;
+      enemy5.y = enemy5.y + enemy5.vy;
+}
+
   // User Movement
   function handleInput() {
     if (keyIsDown(RIGHT_ARROW)) {
@@ -334,11 +391,18 @@ function display3() {
   function keyPressed() {
     if (key === '1') {
           state = 'level1';
+          user.y = 100;
     }
     if (key === '2') {
           state = 'level2';
+          user.y = 900;
     }
     if (key === '3') {
           state = 'level3';
+          user.y = 100;
+    }
+    if (key === '4') {
+          state = 'level4';
+          user.y = 900;
     }
   }
