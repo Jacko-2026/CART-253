@@ -430,4 +430,16 @@ function display4() {
           state = 'level4';
           user.y = 900;
     }
+
+// Alternative Versions
+    if (key === 'w') {
+      user.image = loadImage('assets/images/Wizard.gif');
+      questItem.image = loadImage('assets/images/Potion_02.gif');
+      enemy1.image = loadImage('assets/images/Fireball_03.gif');
+      enemy2.image = loadImage('assets/images/Fireball_03.gif');
+      enemy3.image = loadImage('assets/images/Fireball_03.gif');
+      enemy4.image = loadImage('assets/images/Fireball_03.gif');
+      enemy5.image = loadImage('assets/images/Fireball_03.gif');
+    }
+
   }
