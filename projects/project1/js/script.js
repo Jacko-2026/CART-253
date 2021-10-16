@@ -461,7 +461,7 @@ function display4() {
   //Originally Meant to be the Intro Music but it's now a secret song
     if (key === 'm') {
       introMusic.stop();
-      introMusic.play();
+      introMusic.loop();
     }
     if (key === 'n') {
       introMusic.stop();
