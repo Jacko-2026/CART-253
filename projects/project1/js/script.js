@@ -460,11 +460,14 @@ function display4() {
     }
   //Originally Meant to be the Intro Music but it's now a secret song
     if (key === 'm') {
+      mainMusic.stop();
       introMusic.stop();
       introMusic.loop();
     }
     if (key === 'n') {
       introMusic.stop();
+      mainMusic.stop();
+      mainMusic.loop();
     }
 
 // Alternative Versions
