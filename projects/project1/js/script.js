@@ -10,6 +10,8 @@ Using the classic game of Frogger as a refrence point (using only my memory), I 
 "use strict";
 
 let imgIntro;
+let introMusic;
+let mainMusic;
 
 let lake = {
   x: 500,
@@ -122,7 +124,7 @@ let state = 'title';  // Can be title, level 1, level 2, level 3, etc
 
 function preload() {
 // Sprites
-  imgIntro = loadImage('assets/images/Start.gif');
+  imgIntro = loadImage('assets/images/Start_02.gif');
   lake.image = loadImage('assets/images/BACKGROUND.jpg')
   user.image = loadImage('assets/images/ToadBoy_03.gif')
   questItem.image = loadImage('assets/images/FLY_02.png')
@@ -131,6 +133,10 @@ function preload() {
   enemy3.image = loadImage('assets/images/LOG_03.png')
   enemy4.image = loadImage('assets/images/LOG_03.png')
   enemy5.image = loadImage('assets/images/LOG_03.png')
+// Music
+ soundFormats('mp3', 'ogg');
+  introMusic = loadSound('assets/sounds/IntroMusic');
+  mainMusic = loadSound('assets/sounds/MainMusic');
 }
 
 function setup() {
@@ -334,15 +340,27 @@ function level4() {
 function mousePressed() {
   if (state === 'title') {
     state = 'level1';
+    introMusic.stop();
+    mainMusic.stop();
+    mainMusic.loop();
   }
   if (state === 'level1Vic') {
         state = 'level2';
+        introMusic.stop();
+        mainMusic.stop();
+        mainMusic.loop();
   }
   if (state === 'level2Vic') {
         state = 'level3';
+        introMusic.stop();
+        mainMusic.stop();
+        mainMusic.loop();
   }
   if (state === 'level3Vic') {
         state = 'level4';
+        introMusic.stop();
+        mainMusic.stop();
+        mainMusic.loop();
   }
 }
 
@@ -439,6 +457,14 @@ function display4() {
     if (key === '4') {
           state = 'level4';
           user.y = 900;
+    }
+  //Originally Meant to be the Intro Music but it's now a secret song
+    if (key === 'm') {
+      introMusic.stop();
+      introMusic.play();
+    }
+    if (key === 'n') {
+      introMusic.stop();
     }
 
 // Alternative Versions
