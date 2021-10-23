@@ -13,9 +13,9 @@ let numSuperBalls = 1;
 let state = 'simulation';
 
 function setup() {
-  createCanvas(windowWidth,windowHeight);
+  createCanvas(800,800);
 
-  paddle = new Paddle(300,20);
+  paddle = new Paddle(140,18);
 
   for (let i = 0; i < numBalls; i++) {
     let x = random(0,width);
@@ -70,7 +70,7 @@ function draw() {
 }
 
 function simulation(){
-  if (balls.y > windowHeight) {
+  if (SuperBall.y > height) {
     state = 'badEnding';
   }
 }
