@@ -70,7 +70,7 @@ function draw() {
 }
 
 function simulation(){
-  if (SuperBall.y > height) {
+  if (SuperBall.y > height| SuperBall.x > width) {
     state = 'badEnding';
   }
 }
