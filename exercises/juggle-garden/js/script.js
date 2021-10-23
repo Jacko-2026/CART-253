@@ -36,3 +36,7 @@ function draw() {
     }
   }
 }
+
+function mouseClicked() {
+  numBalls = numballs + 5;
+}
