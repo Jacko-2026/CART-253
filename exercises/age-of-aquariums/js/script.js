@@ -101,7 +101,7 @@ function ending() {
 }
 
 function checkOverlap() {
-  if (food.eaten = true) {
+  if (food1.eaten, food2.eaten, food3.eaten, food4.eaten, food5.eaten, food6.eaten = false) {
     state = 'ending';
   }
 }
