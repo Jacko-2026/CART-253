@@ -70,7 +70,7 @@ function draw() {
 }
 
 function simulation(){
-  if (ball.y > height) {
+  if (balls.y > windowHeight) {
     state = 'badEnding';
   }
 }
