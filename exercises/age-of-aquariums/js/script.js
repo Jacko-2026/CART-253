@@ -1,9 +1,5 @@
 /**
-Title of Project
-Author Name
-
-This is a template. You must fill in the title,
-author, and this description to match your project!
+The Age of Aquariums
 */
 
 "use strict";
@@ -12,7 +8,7 @@ author, and this description to match your project!
 let user = {
 x: 0,
 y: 0,
-size: 100
+size: 75
 }
 
 let food1;
@@ -22,18 +18,17 @@ let food4;
 let food5;
 let food6;
 
-/**
-Description of setup
-*/
+let state = 'title'; // Can be: title, simulation,  love, sadness
+
 function setup() {
   createCanvas(600, 600);
 
-food1 = createFood(50, 300);
+food1 = createFood(50, 50);
 food2 = createFood(150, 300);
-food3 = createFood(250, 300);
-food4 = createFood(350, 300);
+food3 = createFood(250, 250);
+food4 = createFood(350, 350);
 food5 = createFood(450, 300);
-food6 = createFood(550, 300);
+food6 = createFood(550, 550);
 }
 
  function createFood(x,y) {
@@ -50,6 +45,16 @@ food6 = createFood(550, 300);
 function draw() {
   background(0);
 
+  if (state === 'title') {
+    title();
+  }
+  else if (state === 'simulation') {
+    simulation();
+  }
+  else if (state === 'ending') {
+  ending();
+}
+
 // Move the user (with the mouse)
 moveUser();
 
@@ -62,13 +67,49 @@ checkFood(food5);
 checkFood(food6);
 
 // Display the user and foods
-displayUser();
-displayFood(food1);
-displayFood(food2);
-displayFood(food3);
-displayFood(food4);
-displayFood(food5);
-displayFood(food6);
+
+}
+
+function title() {
+  push();
+  textSize(64);
+  fill(200,100,100);
+  textAlign(CENTER,CENTER);
+  text('GO FISH!',width/2,height/2);
+  pop();
+}
+
+function simulation() {
+  checkOverlap();
+  moveUser();
+  displayUser();
+  displayFood(food1);
+  displayFood(food2);
+  displayFood(food3);
+  displayFood(food4);
+  displayFood(food5);
+  displayFood(food6);
+}
+
+function ending() {
+  push();
+  textSize(64);
+  fill(150,255,150);
+  textAlign(CENTER,CENTER);
+  text('CONGRATS!',width/2,height/2);
+  pop();
+}
+
+function checkOverlap() {
+  if (food.eaten = true) {
+    state = 'ending';
+  }
+}
+
+function mousePressed() {
+  if (state === 'title') {
+    state = 'simulation';
+  }
 }
 
 // Sets the user position to the mouse position
