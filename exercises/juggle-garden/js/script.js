@@ -70,8 +70,14 @@ function draw() {
 }
 
 function simulation(){
-  if (SuperBall.x < 0 || SuperBall.x > width || SuperBall.y < 0 || SuperBall.y > height) {
+  for (let i = 0; i < superBalls.length; i++) {
+    let superBall = superBalls[i];
+    if (superBall.active === false) {
     state = 'badEnding';
+    }
+    if (superBall.x > 800 || superBall.x < 0) {
+      state = 'goodEnding'
+    }
   }
 }
 
