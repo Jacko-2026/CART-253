@@ -11,9 +11,8 @@ y: 0,
 size: 75
 }
 
-let color = ['#fcba03', '#fc4503', '#03fc41', '#03fcf8', '#a103fc', '#fc037b'];
-let c2 = random(color);
-
+let c = ['#fcba03', '#fc4503', '#03fc41', '#03fcf8', '#a103fc', '#fc037b'];
+let r = random(c);
 
 let food1;
 let food2;
@@ -166,7 +165,7 @@ function displayFood(food) {
   if (!food.eaten) {
     // Display the food as its position and with its size
     push();
-    fill(c2);
+    fill(r);
     ellipse(food.x, food.y, food.size);
     pop();
   }
