@@ -20,8 +20,15 @@ let food6;
 
 let state = 'title';
 
+let foodGroup = (
+  food1, food2, food3, food4, food5, food6
+);
+
 function setup() {
   createCanvas(600, 600);
+
+let c =['#fcba03', '#fc4503', '#03fc41', '#03fcf8', '#a103fc', '#fc037b'];
+let r = random(c)
 
 food1 = createFood(50, 50);
 food2 = createFood(150, 300);
@@ -88,7 +95,7 @@ function simulation() {
   displayFood(food4);
   displayFood(food5);
   displayFood(food6);
-  checkOverlap(food1, food2, food3, food4, food5, food6);
+  checkOverlap(foodGroup);
   // The Clock
   timer();
 }
@@ -120,7 +127,7 @@ function badEnding() {
   pop();
 }
 
-function checkOverlap(food1, food2, food3, food4, food5, food6) {
+function checkOverlap(foodGroup) {
   if (food1.eaten && food2.eaten && food3.eaten && food4.eaten && food5.eaten && food6.eaten) {
     state = 'goodEnding';
   }
@@ -162,7 +169,7 @@ function displayFood(food) {
   if (!food.eaten) {
     // Display the food as its position and with its size
     push();
-    fill(255, 100, 100);
+    fill(r);
     ellipse(food.x, food.y, food.size);
     pop();
   }
