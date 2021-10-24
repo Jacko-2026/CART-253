@@ -11,6 +11,10 @@ y: 0,
 size: 75
 }
 
+let color = ['#fcba03', '#fc4503', '#03fc41', '#03fcf8', '#a103fc', '#fc037b'];
+let c2 = random(color);
+
+
 let food1;
 let food2;
 let food3;
@@ -18,7 +22,7 @@ let food4;
 let food5;
 let food6;
 
-let state = 'title'; // Can be: title, simulation,  love, sadness
+let state = 'title';
 
 function setup() {
   createCanvas(600, 600);
@@ -43,7 +47,7 @@ food6 = createFood(550, 550);
 
 
 function draw() {
-  background(0);
+  background(200);
 
   if (state === 'title') {
     title();
@@ -51,8 +55,11 @@ function draw() {
   else if (state === 'simulation') {
     simulation();
   }
-  else if (state === 'ending') {
-  ending();
+  else if (state === 'goodEnding') {
+  goodEnding();
+}
+else if (state === 'badEnding') {
+badEnding();
 }
 
 // Move the user (with the mouse)
@@ -65,22 +72,18 @@ checkFood(food3);
 checkFood(food4);
 checkFood(food5);
 checkFood(food6);
-
-// Display the user and foods
-
 }
 
 function title() {
   push();
   textSize(64);
-  fill(200,100,100);
+  fill(50,50,200);
   textAlign(CENTER,CENTER);
   text('GO FISH!',width/2,height/2);
   pop();
 }
 
 function simulation() {
-  checkOverlap();
   moveUser();
   displayUser();
   displayFood(food1);
@@ -89,9 +92,21 @@ function simulation() {
   displayFood(food4);
   displayFood(food5);
   displayFood(food6);
+  checkOverlap(food1, food2, food3, food4, food5, food6);
+  // The Clock
+  timer();
 }
 
-function ending() {
+function timer() {
+  frameRate(30);
+    text(frameCount, width / 2, height / 2);
+  textSize(30);
+  if (frameCount > 125) {
+    state = 'badEnding'
+  }
+}
+
+function goodEnding() {
   push();
   textSize(64);
   fill(150,255,150);
@@ -100,9 +115,18 @@ function ending() {
   pop();
 }
 
-function checkOverlap() {
-  if (food.eaten) {
-    state = 'ending';
+function badEnding() {
+  push();
+  textSize(64);
+  fill(255,50,50);
+  textAlign(CENTER,CENTER);
+  text('GAME OVER!',width/2,height/2);
+  pop();
+}
+
+function checkOverlap(food1, food2, food3, food4, food5, food6) {
+  if (food1.eaten && food2.eaten && food3.eaten && food4.eaten && food5.eaten && food6.eaten) {
+    state = 'goodEnding';
   }
 }
 
@@ -142,7 +166,7 @@ function displayFood(food) {
   if (!food.eaten) {
     // Display the food as its position and with its size
     push();
-    fill(255, 100, 100);
+    fill(c2);
     ellipse(food.x, food.y, food.size);
     pop();
   }
