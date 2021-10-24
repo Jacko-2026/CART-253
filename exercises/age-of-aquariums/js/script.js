@@ -11,6 +11,8 @@ y: 0,
 size: 75
 }
 
+let r;
+
 let food1;
 let food2;
 let food3;
