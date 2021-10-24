@@ -30,7 +30,7 @@ function setup() {
   createCanvas(600, 600);
 
 let c =['#fcba03', '#fc4503', '#03fc41', '#03fcf8', '#a103fc', '#fc037b'];
-let r = random(c)
+r = random(c)
 
 food1 = createFood(50, 50);
 food2 = createFood(150, 300);
