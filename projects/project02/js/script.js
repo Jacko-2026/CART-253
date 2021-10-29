@@ -17,7 +17,7 @@ vx: 0,
 vy: 0,
 inputThreshold: 0,
 speed: 5,
-size: 25
+size: 50
 }
 let unit = 50;  // For user movement
 
@@ -27,12 +27,14 @@ function preload() {
 
 
 function setup() {
-  createCanvas(800, 800);
-  background(51);
+
 }
 
 
 function draw() {
+  createCanvas(800, 800);
+  background(51);
+
   // Screens/States
   if (state === 'title') {
     title();
