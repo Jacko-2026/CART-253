@@ -10,6 +10,17 @@ author, and this description to match your project!
 
 let state = 'title';
 
+let user = {
+x: 0,
+y: 0,
+vx: 0,
+vy: 0,
+inputThreshold: 0,
+speed: 5,
+size: 25
+}
+let unit = 50;  // For user movement
+
 function preload() {
 
 }
@@ -22,7 +33,6 @@ function setup() {
 
 
 function draw() {
-
   // Screens/States
   if (state === 'title') {
     title();
@@ -39,6 +49,8 @@ function draw() {
   else if (state === 'levelsMap') {
     levelsMap();
   }
+  // Move the user (with arrow keys)
+  moveUser();
 }
 
 // Levels +Title Screen & Victory Screens
@@ -59,6 +71,8 @@ function tutorial() {
   pop();
 }
 function level1() {
+  displayUser();
+  moveUser();
   push();
   textSize(64);
   fill(200,100,100);
@@ -94,4 +108,39 @@ function mousePressed() {
   if (state === 'levelVic') {
     state = 'levelsMap';
   }
+}
+
+// Draw the user as a circle
+function displayUser() {
+  push();
+  fill(255);
+  ellipse(user.x, user.y, user.size);
+  pop();
+}
+// User Movement 01
+function moveUser() {
+  if (keyIsDown(RIGHT_ARROW)) {
+      user.inputThreshold += 0.05;}
+      if (user.inputThreshold >= 1) {
+        user.x += unit;
+        user.inputThreshold = 0;
+      }
+  if (keyIsDown(LEFT_ARROW)) {
+      user.inputThreshold += 0.05;}
+      if (user.inputThreshold >= 1) {
+        user.x += -unit;
+        user.inputThreshold = 0;
+      }
+  if (keyIsDown(UP_ARROW)) {
+      user.inputThreshold += 0.05;}
+      if (user.inputThreshold >= 1) {
+        user.y += -unit;
+        user.inputThreshold = 0;
+      }
+  if (keyIsDown(DOWN_ARROW)) {
+      user.inputThreshold += 0.05;}
+      if (user.inputThreshold >= 1) {
+        user.y += unit;
+        user.inputThreshold = 0;
+      }
 }
