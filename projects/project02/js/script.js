@@ -49,6 +49,9 @@ function draw() {
   else if (state === 'levelsMap') {
     levelsMap();
   }
+  // Constrain User to Canvas
+  user.x = constrain(user.x, 0, width);
+  user.y = constrain(user.y, 0, height);
   // Move the user (with arrow keys)
   moveUser();
 }
@@ -143,4 +146,9 @@ function moveUser() {
         user.y += unit;
         user.inputThreshold = 0;
       }
+}
+// User Movement 02
+  function move() {
+  user.x = user.x + user.vx;
+  user.y = user.y + user.vy;
 }
