@@ -11,8 +11,8 @@ author, and this description to match your project!
 let state = 'title';
 
 let user = {
-x: 0,
-y: 0,
+x: 400,
+y: 400,
 vx: 0,
 vy: 0,
 inputThreshold: 0,
