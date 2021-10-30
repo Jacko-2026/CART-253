@@ -35,8 +35,7 @@ let truck = {
 }
 
 // Timer
-var timerValue = 10;
-var startButton;
+let timerValue = 10;
 
 function preload() {
 
@@ -44,11 +43,6 @@ function preload() {
 
 
 function setup() {
-  push();
-  textAlign(400,100);
-  setInterval(timeIt, 1000);
-  pop();
-
 tree1 = createTree(50,50);
 }
 
@@ -65,23 +59,6 @@ function createTree(x,y) {
 function draw() {
   createCanvas(800, 800);
   background(51);
-
-//Timer
-  if (timerValue >= 10) {
-    textSize(20);
-    fill(255);
-    text("0:" + timerValue, 775 / 2, 50 / 2);
-  }
-  if (timerValue < 10) {
-    textSize(20);
-    fill(255);
-    text('0:0' + timerValue, 775 / 2, 50 / 2);
-  }
-  if (timerValue == 0) {
-    textSize(20);
-    fill(255);
-    text('Level Over', 725 / 2, 50 / 2 + 15);
-  }
 
   // Screens/States
   if (state === 'title') {
@@ -111,12 +88,6 @@ function draw() {
   checkTruck();
 }
 
-//Timer
-function timeIt() {
-  if (timerValue > 0) {
-    timerValue--;
-  }
-}
 
 // Levels +Title Screen & Victory Screens
 function title() {
@@ -140,6 +111,8 @@ function level1() {
   moveUser();
   displayTree(tree1);
   displayTruck();
+  displayTimer();
+  timeIt();
 }
 function levelVic() {
   push();
@@ -168,6 +141,34 @@ function mousePressed() {
   }
   if (state === 'levelVic') {
     state = 'levelsMap';
+  }
+}
+
+//Timer
+function displayTimer() {
+  push();
+  textAlign(400,100);
+  setInterval(timeIt, 1000);
+  pop();
+    if (timerValue >= 10) {
+      textSize(20);
+      fill(255);
+      text("0:" + timerValue, 775 / 2, 50 / 2);
+    }
+    if (timerValue < 10) {
+      textSize(20);
+      fill(255);
+      text('0:0' + timerValue, 775 / 2, 50 / 2);
+    }
+    if (timerValue == 0) {
+      textSize(20);
+      fill(255);
+      text('Level Over', 725 / 2, 50 / 2 + 20);
+    }
+}
+function timeIt() {
+  if (timerValue > 0) {
+    timerValue--;
   }
 }
 
