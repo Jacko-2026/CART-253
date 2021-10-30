@@ -31,9 +31,18 @@ function preload() {
 
 
 function setup() {
-
+tree1 = createTree(50,50);
 }
 
+function createTree(x,y) {
+  let tree = {
+  x: x,
+  y: y,
+  size: 50,
+  cutDown: false
+};
+  return tree;
+}
 
 function draw() {
   createCanvas(800, 800);
@@ -55,11 +64,15 @@ function draw() {
   else if (state === 'levelsMap') {
     levelsMap();
   }
+
   // Constrain User to Canvas
   user.x = constrain(user.x, 0, width);
   user.y = constrain(user.y, 0, height);
   // Move the user (with arrow keys)
   moveUser();
+
+  // Check whether the user has cut down either tree
+  checkTree(tree1);
 }
 
 // Levels +Title Screen & Victory Screens
@@ -82,6 +95,7 @@ function tutorial() {
 function level1() {
   displayUser();
   moveUser();
+  displayTree(tree1);
 }
 function levelVic() {
   push();
@@ -120,6 +134,29 @@ function displayUser() {
   ellipse(user.x, user.y, user.size);
   pop();
 }
+
+// Draw the tree
+function displayTree(tree) {
+  // Check if the tree is still available to be cut down
+  if (!tree.cutDown) {
+    // Display the tree as its position and with its size
+    push();
+    fill(255);
+    square(tree.x, tree.y, tree.size);
+    pop();
+  }
+}
+// Checks if the user overlaps the tree object and cuts it down if so
+function checkTree(tree) {
+  if (!tree.cutDown, keyIsDown(69)) {
+    let d = dist(user.x, user.y, tree.x, tree.y);
+    if (d < user.size / 2 + tree.size / 2) {
+      tree.cutDown = true;
+      unit = 25
+    }
+  }
+}
+
 // User Movement 01
 function moveUser() {
   if (keyIsDown(RIGHT_ARROW)) {
