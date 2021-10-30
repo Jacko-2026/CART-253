@@ -25,6 +25,12 @@ let tree1;
 let tree2;
 let tree3;
 
+let truck = {
+  x: 600,
+  y: 700,
+  size: 100
+}
+
 function preload() {
 
 }
@@ -73,6 +79,7 @@ function draw() {
 
   // Check whether the user has cut down either tree
   checkTree(tree1);
+  checkTruck();
 }
 
 // Levels +Title Screen & Victory Screens
@@ -96,6 +103,7 @@ function level1() {
   displayUser();
   moveUser();
   displayTree(tree1);
+  displayTruck();
 }
 function levelVic() {
   push();
@@ -153,6 +161,21 @@ function checkTree(tree) {
     if (d < user.size / 2 + tree.size / 2) {
       tree.cutDown = true;
       unit = 25
+    }
+  }
+}
+// Draw the truck
+function displayTruck() {
+  push();
+  fill(255);
+  rect(truck.x, truck.y, 170, 80);
+  pop();
+}
+function checkTruck() {
+  if (tree.cutDown === true, keyIsDown(69)) {
+    let d2 = dist(user.x, user.y, truck.x, truck.y);
+    if (d2 < user.size / 2 + truck.size / 2) {
+      unit = 50
     }
   }
 }
