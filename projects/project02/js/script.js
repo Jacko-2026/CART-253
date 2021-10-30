@@ -24,6 +24,9 @@ let unit = 50;  // For user movement
 let tree1;
 let tree2;
 let tree3;
+let treeGroup = (
+  tree1, tree2, tree3
+);
 
 let truck = {
   x: 600,
@@ -172,7 +175,7 @@ function displayTruck() {
   pop();
 }
 function checkTruck() {
-  if (tree.cutDown === true, keyIsDown(69)) {
+  if (keyIsDown(69)) {
     let d2 = dist(user.x, user.y, truck.x, truck.y);
     if (d2 < user.size / 2 + truck.size / 2) {
       unit = 50
