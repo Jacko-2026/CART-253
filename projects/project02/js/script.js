@@ -34,12 +34,21 @@ let truck = {
   size: 100
 }
 
+// Timer
+var timerValue = 10;
+var startButton;
+
 function preload() {
 
 }
 
 
 function setup() {
+  push();
+  textAlign(100,100);
+  setInterval(timeIt, 1000);
+  pop();
+
 tree1 = createTree(50,50);
 }
 
@@ -56,6 +65,17 @@ function createTree(x,y) {
 function draw() {
   createCanvas(800, 800);
   background(51);
+
+//Timer
+  if (timerValue >= 10) {
+    text("0:" + timerValue, width / 2, height / 2);
+  }
+  if (timerValue < 10) {
+    text('0:0' + timerValue, width / 2, height / 2);
+  }
+  if (timerValue == 0) {
+    text('Level Over', width / 2, height / 2 + 15);
+  }
 
   // Screens/States
   if (state === 'title') {
@@ -83,6 +103,13 @@ function draw() {
   // Check whether the user has cut down either tree
   checkTree(tree1);
   checkTruck();
+}
+
+//Timer
+function timeIt() {
+  if (timerValue > 0) {
+    timerValue--;
+  }
 }
 
 // Levels +Title Screen & Victory Screens
