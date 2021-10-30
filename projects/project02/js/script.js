@@ -45,7 +45,7 @@ function preload() {
 
 function setup() {
   push();
-  textAlign(100,100);
+  textAlign(400,100);
   setInterval(timeIt, 1000);
   pop();
 
@@ -68,13 +68,19 @@ function draw() {
 
 //Timer
   if (timerValue >= 10) {
-    text("0:" + timerValue, width / 2, height / 2);
+    textSize(20);
+    fill(255);
+    text("0:" + timerValue, 775 / 2, 50 / 2);
   }
   if (timerValue < 10) {
-    text('0:0' + timerValue, width / 2, height / 2);
+    textSize(20);
+    fill(255);
+    text('0:0' + timerValue, 775 / 2, 50 / 2);
   }
   if (timerValue == 0) {
-    text('Level Over', width / 2, height / 2 + 15);
+    textSize(20);
+    fill(255);
+    text('Level Over', 725 / 2, 50 / 2 + 15);
   }
 
   // Screens/States
