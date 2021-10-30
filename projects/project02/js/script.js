@@ -12,7 +12,7 @@ let state = 'title';
 
 let user = {
 x: 400,
-y: 400,
+y: 800,
 vx: 0,
 vy: 0,
 inputThreshold: 0,
@@ -20,6 +20,10 @@ speed: 5,
 size: 50
 }
 let unit = 50;  // For user movement
+
+let tree1;
+let tree2;
+let tree3;
 
 function preload() {
 
@@ -78,12 +82,6 @@ function tutorial() {
 function level1() {
   displayUser();
   moveUser();
-  push();
-  textSize(64);
-  fill(200,100,100);
-  textAlign(CENTER,CENTER);
-  text('[BLANK]',width/2,height/2);
-  pop();
 }
 function levelVic() {
   push();
