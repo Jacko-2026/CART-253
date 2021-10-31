@@ -209,11 +209,14 @@ function displayTruck() {
   pop();
 }
 function checkTruck() {
+  let d2 = dist(user.x, user.y, truck.x, truck.y);
   if (keyIsDown(69)) {
-    let d2 = dist(user.x, user.y, truck.x, truck.y);
     if (d2 < user.size / 2 + truck.size / 2) {
       unit = 50
     }
+  }
+  if (d2 < user.size / 2 + truck.size / 2,  keyIsDown(ENTER), tree.cutDown = true, unit = 50) {
+    state = 'levelVic';
   }
 }
 
