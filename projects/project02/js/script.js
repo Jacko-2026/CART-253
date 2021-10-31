@@ -215,7 +215,7 @@ function checkTruck() {
       unit = 50
     }
   }
-  if ((d2 < user.size / 2 + truck.size / 2) && (keyIsDown(69)) && (unit = 50)) {
+  if ((d2 < user.size / 2 + truck.size / 2) && (tree.cutDown = true) && (keyIsDown(69)) && (unit = 50)) {
     state = 'levelVic';
   }
 }
