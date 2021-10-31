@@ -116,6 +116,7 @@ function level1() {
   moveUser();
   displayTree(tree1);
   displayTruck();
+
   displayTimer();
 
   let d2 = dist(user.x, user.y, truck.x, truck.y);
@@ -147,6 +148,7 @@ function mousePressed() {
   }
   if (state === 'tutorial') {
     state = 'level1';
+    timerValue = 10;
   }
   if (state === 'levelVic') {
     state = 'levelsMap';
