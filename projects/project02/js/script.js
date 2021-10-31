@@ -193,7 +193,7 @@ function displayTree(tree) {
 }
 // Checks if the user overlaps the tree object and cuts it down if so
 function checkTree(tree) {
-  if (!tree.cutDown, keyIsDown(69)) {
+  if ((!tree.cutDown) && (keyIsDown(69))) {
     let d = dist(user.x, user.y, tree.x, tree.y);
     if (d < user.size / 2 + tree.size / 2) {
       tree.cutDown = true;
