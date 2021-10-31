@@ -35,7 +35,7 @@ let truck = {
 }
 
 // Timer
-let timerValue = 10;
+var timerValue = 10;
 
 function preload() {
 
@@ -111,8 +111,8 @@ function level1() {
   moveUser();
   displayTree(tree1);
   displayTruck();
-  displayTimer();
   timeIt();
+  displayTimer();
 }
 function levelVic() {
   push();
@@ -150,21 +150,21 @@ function displayTimer() {
   textAlign(400,100);
   setInterval(timeIt, 1000);
   pop();
-    if (timerValue >= 10) {
-      textSize(20);
-      fill(255);
-      text("0:" + timerValue, 775 / 2, 50 / 2);
-    }
-    if (timerValue < 10) {
-      textSize(20);
-      fill(255);
-      text('0:0' + timerValue, 775 / 2, 50 / 2);
-    }
-    if (timerValue == 0) {
-      textSize(20);
-      fill(255);
-      text('Level Over', 725 / 2, 50 / 2 + 20);
-    }
+  if (timerValue >= 10) {
+    textSize(20);
+    fill(255);
+    text("0:" + timerValue, 775 / 2, 50 / 2);
+  }
+  if (timerValue < 10) {
+    textSize(20);
+    fill(255);
+    text('0:0' + timerValue, 775 / 2, 50 / 2);
+  }
+  if (timerValue == 0) {
+    textSize(20);
+    fill(255);
+    text('Level Over', 725 / 2, 50 / 2 + 20);
+  }
 }
 function timeIt() {
   if (timerValue > 0) {
