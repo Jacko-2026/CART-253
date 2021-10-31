@@ -27,6 +27,9 @@ let tree3;
 let treeGroup = (
   tree1, tree2, tree3
 );
+let cutDownGroup = (
+  tree1.cutDown && tree2.cutDown && tree3.cutDown
+);
 
 let truck = {
   x: 600,
@@ -36,6 +39,7 @@ let truck = {
 
 // Timer
 let timerValue = 10;
+
 
 function preload() {
 
@@ -215,7 +219,7 @@ function checkTruck() {
       unit = 50
     }
   }
-  if (d2 < user.size / 2 + truck.size / 2,  keyIsDown(ENTER), tree.cutDown = true, unit = 50) {
+  if (d2 < user.size / 2 + truck.size / 2,  keyIsDown(ENTER), cutDownGroup, unit = 50) {
     state = 'levelVic';
   }
 }
