@@ -43,6 +43,11 @@ function preload() {
 
 
 function setup() {
+  push();
+  textAlign(400,100);
+  setInterval(timeIt, 1000);
+  pop();
+
 tree1 = createTree(50,50);
 }
 
@@ -111,7 +116,6 @@ function level1() {
   moveUser();
   displayTree(tree1);
   displayTruck();
-  timeIt();
   displayTimer();
 
   let d2 = dist(user.x, user.y, truck.x, truck.y);
@@ -151,10 +155,6 @@ function mousePressed() {
 
 //Timer
 function displayTimer() {
-  push();
-  textAlign(400,100);
-  setInterval(timeIt, 1000);
-  pop();
   if (timerValue >= 10) {
     textSize(20);
     fill(255);
