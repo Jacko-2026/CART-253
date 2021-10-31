@@ -214,7 +214,6 @@ function displayTruck() {
   pop();
 }
 function checkTruck() {
-  let d2 = dist(user.x, user.y, truck.x, truck.y);
   if (keyIsDown(69)) {
     if (d2 < user.size / 2 + truck.size / 2) {
       unit = 50
