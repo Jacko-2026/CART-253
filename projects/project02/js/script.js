@@ -113,6 +113,11 @@ function level1() {
   displayTruck();
   timeIt();
   displayTimer();
+
+  let d2 = dist(user.x, user.y, truck.x, truck.y);
+  if ((d2 < user.size / 2 + truck.size / 2) && (tree1.cutDown = true) && (keyIsDown(69)) && (unit = 50)) {
+    state = 'levelVic';
+  }
 }
 function levelVic() {
   push();
@@ -214,9 +219,6 @@ function checkTruck() {
     if (d2 < user.size / 2 + truck.size / 2) {
       unit = 50
     }
-  }
-  if ((d2 < user.size / 2 + truck.size / 2) && (tree.cutDown = true) && (keyIsDown(69)) && (unit = 50)) {
-    state = 'levelVic';
   }
 }
 
