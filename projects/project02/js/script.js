@@ -45,9 +45,15 @@ let truck = {
   size: 100
 }
 
+// Levels on the levels Map (for level selection)
 let level1Map = {
   x: 75,
   y: 75,
+  size: 50
+}
+let level2Map = {
+  x: 75,
+  y: 250,
   size: 50
 }
 
@@ -107,6 +113,9 @@ function draw() {
   else if (state === 'level1') {
     level1();
   }
+  else if (state === 'level2') {
+    level2();
+  }
   else if (state === 'levelVic') {
     levelVic();
   }
@@ -156,20 +165,60 @@ function level1() {
 
   displayUser();
   moveUser();
-  // Display Trees
+// Display Trees
   displayTree(tree1);
 
-  // Display Hearts
+// Display Hearts
   displayHeart(health1);
   displayHeart(health2);
   displayHeart(health3);
   displayHeart(health4);
   displayHeart(health5);
 
-  // Display Truck
+// Display Truck
   displayTruck();
 
   displayTimer();
+//// Checks if the user has cut down tree1, if yes then they may leave via the truck
+  let dTruck = dist(user.x, user.y, truck.x, truck.y);
+  if ((dTruck < user.size / 2 + truck.size / 2) && (tree1.cutDown === true) && (keyIsDown(69)) && (unit === 50)) {
+    state = 'levelVic';
+  }
+  if (timerValue == 0) {
+    state = 'levelGameOver';
+  }
+}
+function level2() {
+  push();
+  textSize(54);
+  fill(200,100,100);
+  textAlign(CENTER,CENTER);
+  text('[LEVEL 2]',width/2,height/2);
+  pop();
+
+// User
+  displayUser();
+  moveUser();
+
+// Display Trees
+  displayTree(tree1);
+  tree1.x = 50
+  tree1.y = 80
+
+// Display Hearts
+  displayHeart(health1);
+  displayHeart(health2);
+  displayHeart(health3);
+  displayHeart(health4);
+  displayHeart(health5);
+
+// Display Truck
+  displayTruck();
+
+// Timer
+  displayTimer();
+  timerValue = 59;
+
 //// Checks if the user has cut down tree1, if yes then they may leave via the truck
   let dTruck = dist(user.x, user.y, truck.x, truck.y);
   if ((dTruck < user.size / 2 + truck.size / 2) && (tree1.cutDown === true) && (keyIsDown(69)) && (unit === 50)) {
@@ -326,8 +375,8 @@ function displayLevel1() {
     if (dLevel1 < user.size / 2 + level1Map.size / 2) {
       state = 'level1'
       timerValue = 59;
-      user.x = 400
-      user.y = 800
+      user.x = 400;
+      user.y = 800;
       tree1.cutDown = false;
     }
   }
@@ -337,6 +386,17 @@ function displayLevel2() {
   fill(255);
   square(75, 250, 50);
   pop();
+
+  if (keyIsDown(69)) {
+    let dLevel2 = dist(user.x, user.y, level2Map.x, level2Map.y);
+    if (dLevel2 < user.size / 2 + level2Map.size / 2) {
+      state = 'level2'
+      timerValue = 59;
+      user.x = 400;
+      user.y = 800;
+      tree1.cutDown = false;
+    }
+  }
 }
 
 // User Movement 01
