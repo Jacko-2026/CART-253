@@ -90,7 +90,7 @@ function draw() {
   // Move the user (with arrow keys)
   moveUser();
 
-  // Check whether the user has cut down either tree
+  // Check whether the user has cut down a tree
   checkTree(tree1);
   checkTruck();
 }
@@ -120,9 +120,9 @@ function level1() {
   displayTruck();
 
   displayTimer();
-
+//// Checks if the user has cut down tree1, if yes then they may leave via the truck
   let dTruck = dist(user.x, user.y, truck.x, truck.y);
-  if ((dTruck < user.size / 2 + truck.size / 2) && (tree1.cutDown = true) && (keyIsDown(69)) && (unit = 50)) {
+  if ((dTruck < user.size / 2 + truck.size / 2) && (tree1.cutDown === true) && (keyIsDown(69)) && (unit === 50)) {
     state = 'levelVic';
   }
 }
