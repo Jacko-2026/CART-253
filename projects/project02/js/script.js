@@ -80,6 +80,9 @@ function draw() {
   else if (state === 'levelVic') {
     levelVic();
   }
+  else if (state === 'levelGameOver') {
+    levelGameOver();
+  }
   else if (state === 'levelsMap') {
     levelsMap();
   }
@@ -125,6 +128,9 @@ function level1() {
   if ((dTruck < user.size / 2 + truck.size / 2) && (tree1.cutDown === true) && (keyIsDown(69)) && (unit === 50)) {
     state = 'levelVic';
   }
+  if (timerValue == 0) {
+    state = 'levelGameOver';
+  }
 }
 function levelVic() {
   push();
@@ -134,12 +140,25 @@ function levelVic() {
   text('LEVEL COMPLETE!',width/2,height/2);
   pop();
 }
+// If the user runs out of time, the level ends and resets to the levelsMap
+function levelGameOver() {
+  push();
+  textSize(32);
+  fill(200,100,100);
+  textAlign(CENTER,CENTER);
+  text('UH OH, YOU RAN OUT OF TIME!',width/2,height/2);
+  pop();
+
+  if (keyIsDown(13)) {
+    state = 'levelsMap';
+  }
+}
 function levelsMap() {
   push();
   textSize(64);
   fill(200,100,100);
   textAlign(CENTER,CENTER);
-  text('[BLANK]',width/2,height/2);
+  text('[MAP]',width/2,height/2);
   pop();
 }
 
@@ -150,7 +169,7 @@ function mousePressed() {
   }
   if (state === 'tutorial') {
     state = 'level1';
-    timerValue = 10;
+    timerValue = 59;
   }
   if (state === 'levelVic') {
     state = 'levelsMap';
