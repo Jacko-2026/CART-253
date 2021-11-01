@@ -36,6 +36,12 @@ let truck = {
   size: 100
 }
 
+let level1Map = {
+  x: 75,
+  y: 75,
+  size: 50
+}
+
 // Timer
 var timerValue = 10;
 
@@ -117,6 +123,13 @@ function tutorial() {
   pop();
 }
 function level1() {
+  push();
+  textSize(54);
+  fill(200,100,100);
+  textAlign(CENTER,CENTER);
+  text('[LEVEL 1]',width/2,height/2);
+  pop();
+
   displayUser();
   moveUser();
   displayTree(tree1);
@@ -160,6 +173,10 @@ function levelsMap() {
   textAlign(CENTER,CENTER);
   text('[MAP]',width/2,height/2);
   pop();
+
+    displayLevel1();
+    displayLevel2();
+    displayUser2();
 }
 
 
@@ -243,6 +260,37 @@ function checkTruck() {
       unit = 50
     }
   }
+}
+
+// Draw the user as a rectangle (Truck)
+function displayUser2() {
+  push();
+  fill(255);
+  square(user.x, user.y, 25);
+  pop();
+}
+function displayLevel1() {
+  push();
+  fill(255);
+  square(level1Map.x, level1Map.y, level1Map.size);
+  pop();
+
+  if (keyIsDown(69)) {
+    let dLevel1 = dist(user.x, user.y, level1Map.x, level1Map.y);
+    if (dLevel1 < user.size / 2 + level1Map.size / 2) {
+      state = 'level1'
+      timerValue = 59;
+      user.x = 400
+      user.y = 800
+      tree1.cutDown = false;
+    }
+  }
+}
+function displayLevel2() {
+  push();
+  fill(255);
+  square(75, 250, 50);
+  pop();
 }
 
 // User Movement 01
