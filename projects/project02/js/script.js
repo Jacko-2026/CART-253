@@ -31,6 +31,8 @@ let treeGroup = (
 let truck = {
   x: 600,
   y: 700,
+  w: 170,
+  h: 80,
   size: 100
 }
 
@@ -118,11 +120,6 @@ function level1() {
   displayTruck();
 
   displayTimer();
-
-  let d2 = dist(user.x, user.y, truck.x, truck.y);
-  if ((d2 < user.size / 2 + truck.size / 2) && (tree1.cutDown = true) && (keyIsDown(69)) && (unit = 50)) {
-    state = 'levelVic';
-  }
 }
 function levelVic() {
   push();
@@ -201,8 +198,8 @@ function displayTree(tree) {
 // Checks if the user overlaps the tree object and cuts it down if so
 function checkTree(tree) {
   if ((!tree.cutDown) && (keyIsDown(69))) {
-    let d = dist(user.x, user.y, tree.x, tree.y);
-    if (d < user.size / 2 + tree.size / 2) {
+    let dTree = dist(user.x, user.y, tree.x, tree.y);
+    if (dTree < user.size / 2 + tree.size / 2) {
       tree.cutDown = true;
       unit = 25
     }
@@ -212,15 +209,18 @@ function checkTree(tree) {
 function displayTruck() {
   push();
   fill(255);
-  rect(truck.x, truck.y, 170, 80);
+  rect(truck.x, truck.y, truck.w, truck.h);
   pop();
 }
 function checkTruck() {
+  let dTruck = dist(user.x, user.y, truck.x, truck.y);
   if (keyIsDown(69)) {
-    let d2 = dist(user.x, user.y, truck.x, truck.y);
-    if (d2 < user.size / 2 + truck.size / 2) {
+    if (dTruck < user.size / 2 + truck.size / 2) {
       unit = 50
     }
+  }
+  if ((dTruck < user.size / 2 + truck.size / 2) && (tree1.cutDown = true) && (keyIsDown(69)) && (unit = 50)) {
+    state = 'levelVic';
   }
 }
 
