@@ -21,6 +21,15 @@ size: 50
 }
 let unit = 50;  // For user movement
 
+let health1;
+let health2;
+let health3;
+let health4;
+let health5;
+let healthBar = (
+  health1, health2, health3, health4, health5
+);
+
 let tree1;
 let tree2;
 let tree3;
@@ -56,7 +65,13 @@ function setup() {
   setInterval(timeIt, 1000);
   pop();
 
-tree1 = createTree(50,50);
+tree1 = createTree(50,80);
+
+health1 = createHealth(10,10);
+health2 = createHealth(50,10);
+health3 = createHealth(90,10);
+health4 = createHealth(130,10);
+health5 = createHealth(170,10);
 }
 
 function createTree(x,y) {
@@ -67,6 +82,15 @@ function createTree(x,y) {
   cutDown: false
 };
   return tree;
+}
+function createHealth(x,y) {
+  let health = {
+  x: x,
+  y: y,
+  size: 25,
+  hit: false
+};
+  return health;
 }
 
 function draw() {
@@ -132,7 +156,17 @@ function level1() {
 
   displayUser();
   moveUser();
+  // Display Trees
   displayTree(tree1);
+
+  // Display Hearts
+  displayHeart(health1);
+  displayHeart(health2);
+  displayHeart(health3);
+  displayHeart(health4);
+  displayHeart(health5);
+
+  // Display Truck
   displayTruck();
 
   displayTimer();
@@ -246,6 +280,18 @@ function checkTree(tree) {
     }
   }
 }
+// Draw the heart
+function displayHeart(health) {
+  // Check if the heart is still available to behit/removed
+  if (!health.hit) {
+    // Display the heart as its position and with its size
+    push();
+    fill(255);
+    square(health.x, health.y, health.size);
+    pop();
+  }
+}
+
 // Draw the truck
 function displayTruck() {
   push();
