@@ -37,6 +37,8 @@ let treeGroup = (
   tree1, tree2, tree3
 );
 
+let enemy1;
+
 let truck = {
   x: 600,
   y: 700,
@@ -73,6 +75,8 @@ function setup() {
 
 tree1 = createTree(50,80);
 
+enemy1 = createEnemy(250,350);
+
 health1 = createHealth(10,10);
 health2 = createHealth(50,10);
 health3 = createHealth(90,10);
@@ -88,6 +92,14 @@ function createTree(x,y) {
   cutDown: false
 };
   return tree;
+}
+function createEnemy(x,y) {
+  let enemy = {
+  x: x,
+  y: y,
+  size: 75
+};
+  return enemy;
 }
 function createHealth(x,y) {
   let health = {
@@ -121,6 +133,9 @@ function draw() {
   }
   else if (state === 'levelGameOver') {
     levelGameOver();
+  }
+  else if (state === 'levelHealthOut') {
+    levelHealthOut();
   }
   else if (state === 'levelsMap') {
     levelsMap();
@@ -205,6 +220,11 @@ function level2() {
   tree1.x = 50
   tree1.y = 80
 
+// Display enemy
+  displayEnemy(enemy1);
+// Check if the user has been attacked by an enemy
+  checkEnemy(enemy1);
+
 // Display Hearts
   displayHeart(health1);
   displayHeart(health2);
@@ -217,7 +237,6 @@ function level2() {
 
 // Timer
   displayTimer();
-  timerValue = 59;
 
 //// Checks if the user has cut down tree1, if yes then they may leave via the truck
   let dTruck = dist(user.x, user.y, truck.x, truck.y);
@@ -243,6 +262,19 @@ function levelGameOver() {
   fill(200,100,100);
   textAlign(CENTER,CENTER);
   text('UH OH, YOU RAN OUT OF TIME!',width/2,height/2);
+  pop();
+
+  if (keyIsDown(13)) {
+    state = 'levelsMap';
+  }
+}
+// If the user runs out of health, the level ends and resets to the levelsMap
+function levelHealthOut() {
+  push();
+  textSize(32);
+  fill(200,100,100);
+  textAlign(CENTER,CENTER);
+  text('UH OH, YOU RAN OUT OF HEALTH!',width/2,height/2);
   pop();
 
   if (keyIsDown(13)) {
@@ -329,6 +361,44 @@ function checkTree(tree) {
     }
   }
 }
+// Draw the enemy
+function displayEnemy(enemy) {
+  push();
+  fill(255);
+  square(enemy.x, enemy.y, enemy.size);
+  pop();
+}
+function checkEnemy(enemy) {
+  let dEnemy = dist(user.x, user.y, enemy.x, enemy.y);
+  if (dEnemy < user.size / 2 + enemy.size / 2) {
+    unit = 25
+    if (health1.hit === false) {
+        health1.hit = true
+        user.x = 400;
+        user.y = 800;
+    }
+    if ((health1.hit === true) && (health2.hit === false)) {
+      health2.hit = true
+      user.x = 400;
+      user.y = 800;
+    }
+    if ((health1.hit === true) && (health2.hit === true) && (health3.hit === false)) {
+      health3.hit = true
+      user.x = 400;
+      user.y = 800;
+    }
+    if ((health1.hit === true) && (health2.hit === true) && (health3.hit === true) && (health4.hit === false)) {
+      health4.hit = true
+      user.x = 400;
+      user.y = 800;
+    }
+    if ((health1.hit === true) && (health2.hit === true) && (health3.hit === true) && (health4.hit === true) && (health5.hit === false)) {
+      health5.hit = true
+      state = 'levelHealthOut'
+    }
+  }
+}
+
 // Draw the heart
 function displayHeart(health) {
   // Check if the heart is still available to behit/removed
