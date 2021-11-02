@@ -95,9 +95,7 @@ function createTree(x,y) {
   x: x,
   y: y,
   size: 50,
-  cutDown: false,
-  followThreshold: 50,
-  mode: 'waiting'
+  cutDown: false
 };
   return tree;
 }
@@ -108,7 +106,9 @@ function createEnemy(x,y) {
   vx: 0,
   vy: 0,
   speed: 3,
-  size: 75
+  size: 75,
+  followThreshold: 100,
+  mode: 'waiting'
 };
   return enemy;
 }
