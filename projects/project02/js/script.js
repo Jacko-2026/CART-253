@@ -421,8 +421,8 @@ function checkEnemy(enemy) {
       enemy.mode = `following`;
     }
     else if (enemy.mode === `following`) {
-      enemy.x = user.x + 50;
-      enemy.y = user.y + 50;
+      enemy.x = user.x + enemy.vx;
+      enemy.y = user.y + enemy.vy;
     }
   }
 }
