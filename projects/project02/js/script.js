@@ -266,8 +266,8 @@ function levelGameOver() {
 
   if (keyIsDown(13)) {
     state = 'levelsMap';
+    }
   }
-}
 // If the user runs out of health, the level ends and resets to the levelsMap
 function levelHealthOut() {
   push();
@@ -279,6 +279,14 @@ function levelHealthOut() {
 
   if (keyIsDown(13)) {
     state = 'levelsMap';
+      health1.hit = false;
+      health2.hit = false;
+      health3.hit = false;
+      health4.hit = false;
+      health5.hit = false;
+      unit = 50;
+      user.x = 400;
+      user.y = 800;
   }
 }
 function levelsMap() {
@@ -373,28 +381,28 @@ function checkEnemy(enemy) {
   if (dEnemy < user.size / 2 + enemy.size / 2) {
     unit = 25
     if (health1.hit === false) {
-        health1.hit = true
+        health1.hit = true;
         user.x = 400;
         user.y = 800;
     }
-    if ((health1.hit === true) && (health2.hit === false)) {
-      health2.hit = true
+    if (health1.hit && (health2.hit === false)) {
+      health2.hit = true;
       user.x = 400;
       user.y = 800;
     }
-    if ((health1.hit === true) && (health2.hit === true) && (health3.hit === false)) {
-      health3.hit = true
+    if (health1.hit && health2.hit && (health3.hit === false)) {
+      health3.hit = true;
       user.x = 400;
       user.y = 800;
     }
-    if ((health1.hit === true) && (health2.hit === true) && (health3.hit === true) && (health4.hit === false)) {
-      health4.hit = true
+    if (health1.hit && health2.hit && health3.hit && (health4.hit === false)) {
+      health4.hit = true;
       user.x = 400;
       user.y = 800;
     }
-    if ((health1.hit === true) && (health2.hit === true) && (health3.hit === true) && (health4.hit === true) && (health5.hit === false)) {
-      health5.hit = true
-      state = 'levelHealthOut'
+    if (health1.hit && health2.hit && health3.hit && health4.hit && (health5.hit === false)) {
+      health5.hit = true;
+      state = 'levelHealthOut';
     }
   }
 }
