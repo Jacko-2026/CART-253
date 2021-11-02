@@ -420,7 +420,7 @@ function checkEnemy(enemy) {
     if (dEnemy < enemy.followThreshold) {
       enemy.mode = `following`;
     }
-    else if (enemy.mode = `following`) {
+    else if (enemy.mode === `following`) {
       enemy.x = user.x + 50;
       enemy.y = user.y + 50;
     }
