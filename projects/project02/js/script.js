@@ -68,20 +68,26 @@ function preload() {
 
 
 function setup() {
+// Create Timer
   push();
   textAlign(400,100);
   setInterval(timeIt, 1000);
   pop();
 
+// Create Trees
 tree1 = createTree(50,80);
 
+// Create Enemies
 enemy1 = createEnemy(250,350);
+//Enemy Movemnt (Speed)
+enemy1.vx = enemy1.speed;
 
-health5 = createHealth(10,10);
-health4 = createHealth(50,10);
-health3 = createHealth(90,10);
-health2 = createHealth(130,10);
+// Create Health Bar
 health1 = createHealth(170,10);
+health2 = createHealth(130,10);
+health3 = createHealth(90,10);
+health4 = createHealth(50,10);
+health5 = createHealth(10,10);
 }
 
 function createTree(x,y) {
@@ -97,6 +103,9 @@ function createEnemy(x,y) {
   let enemy = {
   x: x,
   y: y,
+  vx: 0,
+  vy: 0,
+  speed: 3,
   size: 75
 };
   return enemy;
@@ -150,6 +159,16 @@ function draw() {
   // Check whether the user has cut down a tree
   checkTree(tree1);
   checkTruck();
+
+  // Enemy movement
+  // Enemy 1 (Part 1)
+  enemy1.x = enemy1.x + enemy1.vx;
+  enemy1.y = enemy1.y + enemy1.vy;
+
+// Enemy 1 (Part 2)
+if (enemy1.x > width) {
+enemy1.x = 0;
+}
 }
 
 
