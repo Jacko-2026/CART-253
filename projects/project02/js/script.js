@@ -77,11 +77,11 @@ tree1 = createTree(50,80);
 
 enemy1 = createEnemy(250,350);
 
-health1 = createHealth(10,10);
-health2 = createHealth(50,10);
+health5 = createHealth(10,10);
+health4 = createHealth(50,10);
 health3 = createHealth(90,10);
-health4 = createHealth(130,10);
-health5 = createHealth(170,10);
+health2 = createHealth(130,10);
+health1 = createHealth(170,10);
 }
 
 function createTree(x,y) {
@@ -286,7 +286,7 @@ function levelHealthOut() {
       health5.hit = false;
       unit = 50;
       user.x = 400;
-      user.y = 800;
+      user.y = 650;
   }
 }
 function levelsMap() {
@@ -385,22 +385,22 @@ function checkEnemy(enemy) {
         user.x = 400;
         user.y = 800;
     }
-    if (health1.hit && (health2.hit === false)) {
+    else if (health1.hit && (health2.hit === false)) {
       health2.hit = true;
       user.x = 400;
       user.y = 800;
     }
-    if (health1.hit && health2.hit && (health3.hit === false)) {
+    else if (health1.hit && health2.hit && (health3.hit === false)) {
       health3.hit = true;
       user.x = 400;
       user.y = 800;
     }
-    if (health1.hit && health2.hit && health3.hit && (health4.hit === false)) {
+    else if (health1.hit && health2.hit && health3.hit && (health4.hit === false)) {
       health4.hit = true;
       user.x = 400;
       user.y = 800;
     }
-    if (health1.hit && health2.hit && health3.hit && health4.hit && (health5.hit === false)) {
+    else if (health1.hit && health2.hit && health3.hit && health4.hit && (health5.hit === false)) {
       health5.hit = true;
       state = 'levelHealthOut';
     }
