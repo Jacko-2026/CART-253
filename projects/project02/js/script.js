@@ -95,7 +95,9 @@ function createTree(x,y) {
   x: x,
   y: y,
   size: 50,
-  cutDown: false
+  cutDown: false,
+  followThreshold: 50,
+  mode: 'waiting'
 };
   return tree;
 }
@@ -159,16 +161,6 @@ function draw() {
   // Check whether the user has cut down a tree
   checkTree(tree1);
   checkTruck();
-
-  // Enemy movement
-  // Enemy 1 (Part 1)
-  enemy1.x = enemy1.x + enemy1.vx;
-  enemy1.y = enemy1.y + enemy1.vy;
-
-// Enemy 1 (Part 2)
-if (enemy1.x > width) {
-enemy1.x = 0;
-}
 }
 
 
@@ -422,6 +414,13 @@ function checkEnemy(enemy) {
     else if (health1.hit && health2.hit && health3.hit && health4.hit && (health5.hit === false)) {
       health5.hit = true;
       state = 'levelHealthOut';
+    }
+  }
+  if (enemy.mode === `waiting`) {
+    if (dEnemy < enemy.followThreshold) {
+    enemy.mode = `following`;
+    }
+    else if (enemy.mode = `following`) {
     }
   }
 }
