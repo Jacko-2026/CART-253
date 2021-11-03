@@ -463,6 +463,13 @@ function displayLevel1() {
   square(level1Map.x, level1Map.y, level1Map.size);
   pop();
 
+  push();
+  textSize(level1Map.size);
+  textAlign(CENTER,CENTER);
+  fill(200,100,100);
+  text('1',level1Map.x,level1Map.y);
+  pop();
+
   if (keyIsDown(69)) {
     let dLevel1 = dist(user.x, user.y, level1Map.x, level1Map.y);
     if (dLevel1 < user.size / 2 + level1Map.size / 2) {
@@ -479,6 +486,13 @@ function displayLevel2() {
   fill(255);
   rectMode(CENTER);
   square(75, 250, 50);
+  pop();
+
+  push();
+  textSize(level2Map.size);
+  textAlign(CENTER,CENTER);
+  fill(200,100,100);
+  text('2',level2Map.x,level2Map.y);
   pop();
 
   if (keyIsDown(69)) {
