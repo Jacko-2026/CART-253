@@ -105,7 +105,7 @@ function createEnemy(x,y) {
   y: y,
   vx: 0,
   vy: 0,
-  speed: 3,
+  speed: 0,
   size: 75,
   followThreshold: 100,
   mode: 'waiting'
@@ -355,6 +355,7 @@ function timeIt() {
 function displayUser() {
   push();
   fill(255);
+  ellipseMode(CENTER);
   ellipse(user.x, user.y, user.size);
   pop();
 }
@@ -366,6 +367,7 @@ function displayTree(tree) {
     // Display the tree as its position and with its size
     push();
     fill(255);
+    rectMode(CENTER);
     square(tree.x, tree.y, tree.size);
     pop();
   }
@@ -384,6 +386,7 @@ function checkTree(tree) {
 function displayEnemy(enemy) {
   push();
   fill(255);
+  rectMode(CENTER);
   square(enemy.x, enemy.y, enemy.size);
   pop();
 }
@@ -416,8 +419,7 @@ function checkEnemy(enemy) {
       state = 'levelHealthOut';
     }
   }
-  if (enemy.mode === `waiting`) {
-    if (dEnemy < enemy.followThreshold) {
+  if (enemy.mode === `waiting` && dEnemy < enemy.followThreshold) {
       enemy.mode = `following`;
     }
     else if (enemy.mode === `following`) {
@@ -425,8 +427,10 @@ function checkEnemy(enemy) {
       enemy.x = user.x + enemy.vx;
       enemy.y = user.y + enemy.vy;
     }
+    else if ((enemy.mode === 'following') && (user.x === 400) && (user.y === 800)) {
+      enemy.mode = `waiting`;
+    }
   }
-}
 
 // Draw the heart
 function displayHeart(health) {
@@ -466,6 +470,7 @@ function displayUser2() {
 function displayLevel1() {
   push();
   fill(255);
+  rectMode(CENTER);
   square(level1Map.x, level1Map.y, level1Map.size);
   pop();
 
@@ -483,6 +488,7 @@ function displayLevel1() {
 function displayLevel2() {
   push();
   fill(255);
+  rectMode(CENTER);
   square(75, 250, 50);
   pop();
 
