@@ -421,6 +421,7 @@ function checkEnemy(enemy) {
       enemy.mode = `following`;
     }
     else if (enemy.mode === `following`) {
+      enemy.vx = enemy.speed;
       enemy.x = user.x + enemy.vx;
       enemy.y = user.y + enemy.vy;
     }
