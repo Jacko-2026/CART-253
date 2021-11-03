@@ -419,18 +419,7 @@ function checkEnemy(enemy) {
       state = 'levelHealthOut';
     }
   }
-  if (enemy.mode === `waiting` && dEnemy < enemy.followThreshold) {
-      enemy.mode = `following`;
-    }
-    else if (enemy.mode === `following`) {
-      enemy.vx = enemy.speed;
-      enemy.x = user.x + enemy.vx;
-      enemy.y = user.y + enemy.vy;
-    }
-    else if ((enemy.mode === 'following') && (user.x === 400) && (user.y === 800)) {
-      enemy.mode = `waiting`;
-    }
-  }
+}
 
 // Draw the heart
 function displayHeart(health) {
