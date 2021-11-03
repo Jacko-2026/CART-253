@@ -106,9 +106,7 @@ function createEnemy(x,y) {
   vx: 0,
   vy: 0,
   speed: 0,
-  size: 75,
-  followThreshold: 100,
-  mode: 'waiting'
+  size: 75
 };
   return enemy;
 }
@@ -172,6 +170,10 @@ function title() {
   textAlign(CENTER,CENTER);
   text('START',width/2,height/2);
   pop();
+
+  if ((state === 'title') && (keyIsDown(13))) {
+    state = 'tutorial';
+  }
 }
 function tutorial() {
   push();
@@ -315,9 +317,6 @@ function levelsMap() {
 
 
 function mousePressed() {
-  if (state === 'title') {
-    state = 'tutorial';
-  }
   if (state === 'tutorial') {
     state = 'level1';
     timerValue = 59;
