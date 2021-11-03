@@ -180,7 +180,7 @@ function tutorial() {
   textSize(64);
   fill(200,100,100);
   textAlign(CENTER,CENTER);
-  text('TUTORIAL!',width/2,height/2);
+  text('[TUTORIAL]',width/2,height/2);
   pop();
 }
 function level1() {
