@@ -128,8 +128,17 @@ function draw() {
   if (state === 'title') {
     title();
   }
-  else if (state === 'tutorial') {
-    tutorial();
+  else if (state === 'tutPart1') {
+    tutPart1();
+  }
+  else if (state === 'tutPart2') {
+    tutPart2();
+  }
+  else if (state === 'tutPart3') {
+    tutPart3();
+  }
+  else if (state === 'tutPart4') {
+    tutPart4();
   }
   else if (state === 'level1') {
     level1();
@@ -172,17 +181,75 @@ function title() {
   pop();
 
   if ((state === 'title') && (keyIsDown(13))) {
-    state = 'tutorial';
+    state = 'tutPart1';
   }
 }
-function tutorial() {
+function tutPart1() {
   push();
-  textSize(64);
+  textSize(25);
   fill(200,100,100);
-  textAlign(CENTER,CENTER);
-  text('[TUTORIAL]',width/2,height/2);
+  textAlign(LEFT);
+    text('You are a lumberjack in the year 20XX,',0,100);
+    text('With the recent economic boom,',0,150);
+        text('Wood is in high demand to build new homes.',0,175);
+    text('You must travel further and further from the village',0,250);
+        text('To collect wood to sell.',0,275);
+    text('However, there are dangers to travelling to far out of the village,',0,325);
+    text('Beware of snakes, moose, and bears as they will attack you on sight.',0,350);
   pop();
+
+  keyReleased()
 }
+function tutPart2() {
+  push();
+  textSize(25);
+  fill(200,100,100);
+  textAlign(LEFT);
+    text('There are several types of trees you may cut down,',0,100);
+    text('Each type provides you with different levels of gold and or upgrades.',0,150);
+    text('With gold you can buy gas for your truck, first aid for your health,',0,200);
+    text('Food for your energy, tool upgrades, and so on.',0,225);
+  pop();
+
+  keyReleased()
+}
+function tutPart3() {
+  push();
+  textSize(25);
+  fill(200,100,100);
+  textAlign(LEFT);
+    text('Use the arrow keys to move your character,',0,100);
+    text('The mouse to progress through levels and the buy menu,',0,150);
+    text('And use “e” as a way to interact with trees, the truck, levels, etc.',0,200);
+  pop();
+
+  keyReleased()
+}
+function tutPart4() {
+  push();
+  textSize(25);
+  fill(200,100,100);
+  textAlign(LEFT);
+    text('You can press “i” at any moment',0,100);
+    text('To bring up a short tutorial',0,125);
+    text('If you need help',0,150);
+  pop();
+
+  keyReleased()
+}
+function keyReleased() {
+  if ((keyCode === RIGHT_ARROW) && (state === 'tutPart1')) {
+    state = 'tutPart2';
+  }
+  else if ((keyCode === LEFT_ARROW) && (state === 'tutPart2')) {
+    state = 'tutPart3';
+  }
+  else if ((keyCode === RIGHT_ARROW) && (state === 'tutPart3')) {
+    state = 'tutPart4';
+  }
+    return false;
+}
+
 function level1() {
   push();
   textSize(54);
@@ -317,7 +384,7 @@ function levelsMap() {
 
 
 function mousePressed() {
-  if (state === 'tutorial') {
+  if (state === 'tutPart4') {
     state = 'level1';
     timerValue = 59;
   }
