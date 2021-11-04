@@ -12,7 +12,7 @@ let state = 'title';
 
 let user = {
 x: 400,
-y: 800,
+y: 700,
 vx: 0,
 vy: 0,
 inputThreshold: 0,
@@ -420,8 +420,8 @@ function timeIt() {
 // Draw the user as a circle
 function displayUser() {
   push();
-  fill(255);
   ellipseMode(CENTER);
+  fill(255);
   ellipse(user.x, user.y, user.size);
   pop();
 }
@@ -432,7 +432,7 @@ function displayTree(tree) {
   if (!tree.cutDown) {
     // Display the tree as its position and with its size
     push();
-    fill(255);
+    fill(10, 204, 65);
     rectMode(CENTER);
     square(tree.x, tree.y, tree.size);
     pop();
@@ -463,22 +463,22 @@ function checkEnemy(enemy) {
     if (health1.hit === false) {
         health1.hit = true;
         user.x = 400;
-        user.y = 800;
+        user.y = 700;
     }
     else if (health1.hit && (health2.hit === false)) {
       health2.hit = true;
       user.x = 400;
-      user.y = 800;
+      user.y = 700;
     }
     else if (health1.hit && health2.hit && (health3.hit === false)) {
       health3.hit = true;
       user.x = 400;
-      user.y = 800;
+      user.y = 700;
     }
     else if (health1.hit && health2.hit && health3.hit && (health4.hit === false)) {
       health4.hit = true;
       user.x = 400;
-      user.y = 800;
+      user.y = 700;
     }
     else if (health1.hit && health2.hit && health3.hit && health4.hit && (health5.hit === false)) {
       health5.hit = true;
@@ -493,7 +493,7 @@ function displayHeart(health) {
   if (!health.hit) {
     // Display the heart as its position and with its size
     push();
-    fill(255);
+    fill(242, 70, 108);
     square(health.x, health.y, health.size);
     pop();
   }
@@ -502,7 +502,7 @@ function displayHeart(health) {
 // Draw the truck
 function displayTruck() {
   push();
-  fill(255);
+  fill(140, 0, 26);
   rect(truck.x, truck.y, truck.w, truck.h);
   pop();
 }
@@ -518,7 +518,7 @@ function checkTruck() {
 // Draw the user as a rectangle (Truck)
 function displayUser2() {
   push();
-  fill(255);
+  fill(140, 0, 26);
   square(user.x, user.y, 25);
   pop();
 }
