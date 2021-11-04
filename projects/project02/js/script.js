@@ -105,6 +105,7 @@ function createEnemy(x,y) {
   y: y,
   vx: 0,
   vy: 0,
+  fill: (undefined),
   speed: 0,
   size: 75
 };
@@ -231,8 +232,8 @@ function tutPart4() {
   fill(200,100,100);
   textAlign(LEFT);
     text('You can press “i” at any moment',0,100);
-    text('To bring up a short tutorial',0,125);
-    text('If you need help',0,150);
+    text('To bring up a short tutorial',0,150);
+    text('If you need help.',0,200);
   pop();
 
   keyReleased()
@@ -247,7 +248,6 @@ function keyReleased() {
   else if ((keyCode === RIGHT_ARROW) && (state === 'tutPart3')) {
     state = 'tutPart4';
   }
-    return false;
 }
 
 function level1() {
@@ -302,6 +302,8 @@ function level2() {
 
 // Display enemy
   displayEnemy(enemy1);
+  enemy1.size = 55
+  enemy1.fill = (219, 235, 52)
 // Check if the user has been attacked by an enemy
   checkEnemy(enemy1);
 
@@ -451,7 +453,6 @@ function checkTree(tree) {
 // Draw the enemy
 function displayEnemy(enemy) {
   push();
-  fill(255);
   rectMode(CENTER);
   square(enemy.x, enemy.y, enemy.size);
   pop();
@@ -604,4 +605,18 @@ function moveUser() {
   function move() {
   user.x = user.x + user.vx;
   user.y = user.y + user.vy;
+}
+
+
+
+// Cheat Codes (For ease of movement between states during development)
+function keyPressed() {
+  if (keyCode === 49) {
+   state = 'level1';
+   timerValue = 1000;
+ }
+ else if (keyCode === 50) {
+  state = 'level2';
+  timerValue = 1000;
+ }
 }
