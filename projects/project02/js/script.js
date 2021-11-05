@@ -79,8 +79,6 @@ tree1 = createTree(50,80);
 
 // Create Enemies
 snake1 = createSnake(250,350);
-//Enemy Movemnt (Speed)
-snake1.vx = snake1.speed;
 
 // Create Health Bar
 health1 = createHealth(170,10);
@@ -105,7 +103,7 @@ function createSnake(x,y) {
   y: y,
   vx: 0,
   vy: 0,
-  speed: 0,
+  speed: 6,
   size: 75
 };
   return snake;
@@ -304,6 +302,15 @@ function level2() {
   snake1.size = 55
 // Check if the user has been attacked by an enemy
   checkSnake(snake1);
+// Enemy movement
+  // Snake 1
+  snake1.vx = snake1.speed;
+  snake1.x = snake1.x + snake1.vx;
+  snake1.y = snake1.y + snake1.vy;
+  if (snake1.x > width) {
+  snake1.x = 0;
+  snake1.y = random(0,height);
+}
 
 // Display Hearts
   displayHeart(health1);
@@ -613,9 +620,19 @@ function keyPressed() {
   if (keyCode === 49) {
    state = 'level1';
    timerValue = 59;
+   health1.hit = false;
+   health2.hit = false;
+   health3.hit = false;
+   health4.hit = false;
+   health5.hit = false;
  }
  else if (keyCode === 50) {
   state = 'level2';
   timerValue = 59;
+  health1.hit = false;
+  health2.hit = false;
+  health3.hit = false;
+  health4.hit = false;
+  health5.hit = false;
  }
 }
