@@ -37,7 +37,7 @@ let treeGroup = (
   tree1, tree2, tree3
 );
 
-let enemy1;
+let snake1;
 
 let truck = {
   x: 600,
@@ -78,9 +78,9 @@ function setup() {
 tree1 = createTree(50,80);
 
 // Create Enemies
-enemy1 = createEnemy(250,350);
+snake1 = createSnake(250,350);
 //Enemy Movemnt (Speed)
-enemy1.vx = enemy1.speed;
+snake1.vx = snake1.speed;
 
 // Create Health Bar
 health1 = createHealth(170,10);
@@ -99,17 +99,16 @@ function createTree(x,y) {
 };
   return tree;
 }
-function createEnemy(x,y) {
-  let enemy = {
+function createSnake(x,y) {
+  let snake = {
   x: x,
   y: y,
   vx: 0,
   vy: 0,
-  fill: (undefined),
   speed: 0,
   size: 75
 };
-  return enemy;
+  return snake;
 }
 function createHealth(x,y) {
   let health = {
@@ -301,11 +300,10 @@ function level2() {
   tree1.y = 80
 
 // Display enemy
-  displayEnemy(enemy1);
-  enemy1.size = 55
-  enemy1.fill = (219, 235, 52)
+  displaySnake(snake1);
+  snake1.size = 55
 // Check if the user has been attacked by an enemy
-  checkEnemy(enemy1);
+  checkSnake(snake1);
 
 // Display Hearts
   displayHeart(health1);
@@ -451,15 +449,16 @@ function checkTree(tree) {
   }
 }
 // Draw the enemy
-function displayEnemy(enemy) {
+function displaySnake(snake) {
   push();
   rectMode(CENTER);
-  square(enemy.x, enemy.y, enemy.size);
+  fill(219,235,52);
+  rect(snake.x, snake.y, 150, 25);
   pop();
 }
-function checkEnemy(enemy) {
-  let dEnemy = dist(user.x, user.y, enemy.x, enemy.y);
-  if (dEnemy < user.size / 2 + enemy.size / 2) {
+function checkSnake(snake) {
+  let dEnemy = dist(user.x, user.y, snake.x, snake.y);
+  if (dEnemy < user.size / 2 + snake.size / 2) {
     unit = 25
     if (health1.hit === false) {
         health1.hit = true;
@@ -613,10 +612,10 @@ function moveUser() {
 function keyPressed() {
   if (keyCode === 49) {
    state = 'level1';
-   timerValue = 1000;
+   timerValue = 59;
  }
  else if (keyCode === 50) {
   state = 'level2';
-  timerValue = 1000;
+  timerValue = 59;
  }
 }
