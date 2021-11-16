@@ -335,6 +335,8 @@ function level2() {
     state = 'levelGameOver';
   }
 }
+
+// Victory screen shown after every level (Once it's completed properly)
 function levelVic() {
   push();
   textSize(64);
@@ -636,14 +638,14 @@ function keyPressed() {
   health4.hit = false;
   health5.hit = false;
  }
- else if (keyCode === 51) {
+ else if (keyCode === 107) {
   health1.hit = false;
   health2.hit = false;
   health3.hit = false;
   health4.hit = false;
   health5.hit = false;
  }
- else if (keyCode === 52) {
+ else if (keyCode === 109) {
    timerValue = 1000;
  }
 }
