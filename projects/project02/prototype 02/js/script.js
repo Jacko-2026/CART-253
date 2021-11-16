@@ -76,6 +76,7 @@ function setup() {
 
 // Create Trees
 tree1 = createTree(50,80);
+tree2 = createTree(50,175);
 
 // Create Enemies
 snake1 = createSnake(250,350);
@@ -309,7 +310,7 @@ function level2() {
   snake1.y = snake1.y + snake1.vy;
   if (snake1.x > width) {
   snake1.x = 0;
-  snake1.y = random(0,height);
+  snake1.y = random(200,600);
 }
 
 // Display Hearts
@@ -634,5 +635,15 @@ function keyPressed() {
   health3.hit = false;
   health4.hit = false;
   health5.hit = false;
+ }
+ else if (keyCode === 51) {
+  health1.hit = false;
+  health2.hit = false;
+  health3.hit = false;
+  health4.hit = false;
+  health5.hit = false;
+ }
+ else if (keyCode === 52) {
+   timerValue = 1000;
  }
 }
