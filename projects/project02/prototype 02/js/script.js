@@ -58,6 +58,11 @@ let level2Map = {
   y: 250,
   size: 50
 }
+let level3Map = {
+  x: 125,
+  y: 400,
+  size: 50
+}
 
 // Timer
 var timerValue = 10;
@@ -76,7 +81,7 @@ function setup() {
 
 // Create Trees
 tree1 = createTree(50,80);
-tree2 = createTree(50,175);
+tree2 = createTree(275,450);
 
 // Create Enemies
 snake1 = createSnake(250,350);
@@ -145,6 +150,9 @@ function draw() {
   else if (state === 'level2') {
     level2();
   }
+  else if (state === 'level3') {
+    level3();
+  }
   else if (state === 'levelVic') {
     levelVic();
   }
@@ -166,6 +174,8 @@ function draw() {
 
   // Check whether the user has cut down a tree
   checkTree(tree1);
+  checkTree(tree2);
+
   checkTruck();
 }
 
@@ -295,23 +305,9 @@ function level2() {
 
 // Display Trees
   displayTree(tree1);
-  tree1.x = 50
-  tree1.y = 80
-
-// Display enemy
-  displaySnake(snake1);
-  snake1.size = 55
-// Check if the user has been attacked by an enemy
-  checkSnake(snake1);
-// Enemy movement
-  // Snake 1
-  snake1.vx = snake1.speed;
-  snake1.x = snake1.x + snake1.vx;
-  snake1.y = snake1.y + snake1.vy;
-  if (snake1.x > width) {
-  snake1.x = 0;
-  snake1.y = random(200,600);
-}
+  tree1.x = 100
+  tree1.y = 175
+  displayTree(tree2);
 
 // Display Hearts
   displayHeart(health1);
@@ -328,7 +324,62 @@ function level2() {
 
 //// Checks if the user has cut down tree1, if yes then they may leave via the truck
   let dTruck = dist(user.x, user.y, truck.x, truck.y);
-  if ((dTruck < user.size / 2 + truck.size / 2) && (tree1.cutDown === true) && (keyIsDown(69)) && (unit === 50)) {
+  if ((dTruck < user.size / 2 + truck.size / 2) && (tree1.cutDown === true) && (tree2.cutDown === true) && (keyIsDown(69)) && (unit === 50)) {
+    state = 'levelVic';
+  }
+  if (timerValue == 0) {
+    state = 'levelGameOver';
+  }
+}
+function level3() {
+  push();
+  textSize(54);
+  fill(200,100,100);
+  textAlign(CENTER,CENTER);
+  text('[LEVEL 3]',width/2,height/2);
+  pop();
+
+// User
+  displayUser();
+  moveUser();
+
+// Display enemy
+  displaySnake(snake1);
+  snake1.size = 55
+// Check if the user has been attacked by an enemy
+  checkSnake(snake1);
+// Enemy movement
+  // Snake 1
+  snake1.vx = snake1.speed;
+  snake1.x = snake1.x + snake1.vx;
+  snake1.y = snake1.y + snake1.vy;
+  if (snake1.x > width) {
+  snake1.x = 0;
+  snake1.y = random(200,600);
+}
+
+// Display Trees
+  displayTree(tree1);
+  tree1.x = 50
+  tree1.y = 80
+  displayTree(tree2);
+
+// Display Hearts
+  displayHeart(health1);
+  displayHeart(health2);
+  displayHeart(health3);
+  displayHeart(health4);
+  displayHeart(health5);
+
+// Display Truck
+  displayTruck();
+
+// Timer
+  displayTimer();
+
+//// Checks if the user has cut down tree1, if yes then they may leave via the truck
+  let dTruck = dist(user.x, user.y, truck.x, truck.y);
+  if ((dTruck < user.size / 2 + truck.size / 2) && (tree1.cutDown === true) && (tree2.cutDown === true) && (keyIsDown(69)) && (unit === 50)) {
     state = 'levelVic';
   }
   if (timerValue == 0) {
@@ -389,6 +440,7 @@ function levelsMap() {
 
     displayLevel1();
     displayLevel2();
+    displayLevel3();
     displayUser2();
 }
 
@@ -579,6 +631,33 @@ function displayLevel2() {
       user.x = 400;
       user.y = 800;
       tree1.cutDown = false;
+      tree2.cutDown = false;
+    }
+  }
+}
+function displayLevel3() {
+  push();
+  fill(255);
+  rectMode(CENTER);
+  square(level3Map.x, level3Map.y, level3Map.size);
+  pop();
+
+  push();
+  textSize(level3Map.size);
+  textAlign(CENTER,CENTER);
+  fill(200,100,100);
+  text('3',level3Map.x,level3Map.y);
+  pop();
+
+  if (keyIsDown(69)) {
+    let dLevel3 = dist(user.x, user.y, level3Map.x, level3Map.y);
+    if (dLevel3 < user.size / 2 + level3Map.size / 2) {
+      state = 'level3'
+      timerValue = 59;
+      user.x = 400;
+      user.y = 800;
+      tree1.cutDown = false;
+      tree2.cutDown = false;
     }
   }
 }
@@ -622,6 +701,9 @@ function moveUser() {
 function keyPressed() {
   if (keyCode === 49) {
    state = 'level1';
+   tree1.x = 50
+   tree1.y = 80
+   tree1.cutDown = false;
    timerValue = 59;
    health1.hit = false;
    health2.hit = false;
@@ -631,6 +713,8 @@ function keyPressed() {
  }
  else if (keyCode === 50) {
   state = 'level2';
+  tree1.cutDown = false;
+  tree2.cutDown = false;
   timerValue = 59;
   health1.hit = false;
   health2.hit = false;
