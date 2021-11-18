@@ -37,7 +37,9 @@ let treeGroup = (
   tree1, tree2, tree3
 );
 
+// Enemies (Snakes)
 let snake1;
+let snake2;
 
 let truck = {
   x: 600,
@@ -63,6 +65,11 @@ let level3Map = {
   y: 400,
   size: 50
 }
+let level4Map = {
+  x: 450,
+  y: 200,
+  size: 50
+}
 
 // Timer
 var timerValue = 10;
@@ -85,6 +92,7 @@ tree2 = createTree(275,450);
 
 // Create Enemies
 snake1 = createSnake(250,350);
+snake2 = createSnake(350,450);
 
 // Create Health Bar
 health1 = createHealth(170,10);
@@ -152,6 +160,9 @@ function draw() {
   }
   else if (state === 'level3') {
     level3();
+  }
+  else if (state === 'level4') {
+    level4();
   }
   else if (state === 'levelVic') {
     levelVic();
@@ -360,9 +371,81 @@ function level3() {
 
 // Display Trees
   displayTree(tree1);
-  tree1.x = 50
-  tree1.y = 80
+  tree1.x = 100
+  tree1.y = 275
   displayTree(tree2);
+  tree2.x = 500
+  tree2.y = 450
+
+// Display Hearts
+  displayHeart(health1);
+  displayHeart(health2);
+  displayHeart(health3);
+  displayHeart(health4);
+  displayHeart(health5);
+
+// Display Truck
+  displayTruck();
+
+// Timer
+  displayTimer();
+
+//// Checks if the user has cut down tree1, if yes then they may leave via the truck
+  let dTruck = dist(user.x, user.y, truck.x, truck.y);
+  if ((dTruck < user.size / 2 + truck.size / 2) && (tree1.cutDown === true) && (tree2.cutDown === true) && (keyIsDown(69)) && (unit === 50)) {
+    state = 'levelVic';
+  }
+  if (timerValue == 0) {
+    state = 'levelGameOver';
+  }
+}
+function level4() {
+  push();
+  textSize(54);
+  fill(200,100,100);
+  textAlign(CENTER,CENTER);
+  text('[LEVEL 4]',width/2,height/2);
+  pop();
+
+// User
+  displayUser();
+  moveUser();
+
+// Display enemy
+  displaySnake(snake1);
+  snake1.size = 55
+// Check if the user has been attacked by an enemy
+  checkSnake(snake1);
+// Enemy movement
+  // Snake 1
+  snake1.vx = snake1.speed;
+  snake1.x = snake1.x + snake1.vx;
+  snake1.y = snake1.y + snake1.vy;
+  if (snake1.x > width) {
+  snake1.x = 0;
+  snake1.y = random(200,600);
+}
+  displaySnake(snake2);
+  snake2.size = 45
+// Check if the user has been attacked by an enemy
+  checkSnake(snake2);
+// Enemy movement
+  // Snake 2
+  snake2.vx = snake2.speed;
+  snake2.x = snake2.x + snake2.vx;
+  snake2.y = snake2.y + snake2.vy;
+  if (snake2.x > width) {
+  snake2.x = 0;
+  snake2.y = random(200,600);
+}
+
+// Display Trees
+  displayTree(tree1);
+  tree1.x = 100
+  tree1.y = 275
+  displayTree(tree2);
+  tree2.x = 500
+  tree2.y = 450
 
 // Display Hearts
   displayHeart(health1);
@@ -441,6 +524,7 @@ function levelsMap() {
     displayLevel1();
     displayLevel2();
     displayLevel3();
+    displayLevel4();
     displayUser2();
 }
 
@@ -661,6 +745,32 @@ function displayLevel3() {
     }
   }
 }
+function displayLevel4() {
+  push();
+  fill(255);
+  rectMode(CENTER);
+  square(level4Map.x, level4Map.y, level4Map.size);
+  pop();
+
+  push();
+  textSize(level4Map.size);
+  textAlign(CENTER,CENTER);
+  fill(200,100,100);
+  text('4',level4Map.x,level4Map.y);
+  pop();
+
+  if (keyIsDown(69)) {
+    let dLevel4 = dist(user.x, user.y, level4Map.x, level4Map.y);
+    if (dLevel4 < user.size / 2 + level4Map.size / 2) {
+      state = 'level4'
+      timerValue = 59;
+      user.x = 400;
+      user.y = 800;
+      tree1.cutDown = false;
+      tree2.cutDown = false;
+    }
+  }
+}
 
 // User Movement 01
 function moveUser() {
@@ -713,6 +823,30 @@ function keyPressed() {
  }
  else if (keyCode === 50) {
   state = 'level2';
+  tree1.cutDown = false;
+  tree2.cutDown = false;
+  tree2.x = 275
+  tree2.y = 450
+  timerValue = 59;
+  health1.hit = false;
+  health2.hit = false;
+  health3.hit = false;
+  health4.hit = false;
+  health5.hit = false;
+ }
+ else if (keyCode === 51) {
+  state = 'level3';
+  tree1.cutDown = false;
+  tree2.cutDown = false;
+  timerValue = 59;
+  health1.hit = false;
+  health2.hit = false;
+  health3.hit = false;
+  health4.hit = false;
+  health5.hit = false;
+ }
+ else if (keyCode === 52) {
+  state = 'level4';
   tree1.cutDown = false;
   tree2.cutDown = false;
   timerValue = 59;
