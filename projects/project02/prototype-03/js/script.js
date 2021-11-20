@@ -31,6 +31,7 @@ let health5;
 let healthBar = (
   health1, health2, health3, health4, health5
 );
+let healthImage1;
 
 let tree1;
 let tree2;
@@ -38,6 +39,7 @@ let tree3;
 let treeGroup = (
   tree1, tree2, tree3
 );
+let treeImage1;
 
 // Enemies (Snakes)
 let snake1;
@@ -77,7 +79,8 @@ let level4Map = {
 var timerValue = 10;
 
 function preload() {
-
+  treeImage1 = loadImage('assets/images/Tree.png');
+  healthImage1 = loadImage('assets/images/Heart_Full.png');
 }
 
 
@@ -97,19 +100,20 @@ snake1 = createSnake(250,350);
 snake2 = createSnake(350,450);
 
 // Create Health Bar
-health1 = createHealth(170,10);
-health2 = createHealth(130,10);
-health3 = createHealth(90,10);
-health4 = createHealth(50,10);
-health5 = createHealth(10,10);
+health1 = createHealth(180,15);
+health2 = createHealth(140,15);
+health3 = createHealth(100,15);
+health4 = createHealth(60,15);
+health5 = createHealth(20,15);
 }
 
 function createTree(x,y) {
   let tree = {
   x: x,
   y: y,
+  size: 15,
   cutDown: false,
-  image: undefined
+  image: treeImage1
 };
   return tree;
 }
@@ -129,7 +133,7 @@ function createHealth(x,y) {
   x: x,
   y: y,
   hit: false,
-  image: undefined
+  image: healthImage1
 };
   return health;
 }
@@ -579,7 +583,6 @@ function displayTree(tree) {
   // Check if the tree is still available to be cut down
   if (!tree.cutDown) {
     // Display the tree as its position and with its size
-    tree.image = loadImage('assets/images/Tree_02.png');
     imageMode(CENTER);
      image(tree.image, tree.x, tree.y);
   }
@@ -638,7 +641,6 @@ function displayHeart(health) {
   // Check if the heart is still available to behit/removed
   if (!health.hit) {
     // Display the heart as its position and with its size
-    health.image = loadImage('assets/images/Heart_Full.png');
     imageMode(CENTER);
      image(health.image, health.x, health.y);
   }
