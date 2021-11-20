@@ -21,8 +21,6 @@ size: 50
 }
 let unit = 50;  // For user movement
 
-let mouse;
-
 let health1;
 let health2;
 let health3;
@@ -77,7 +75,7 @@ let level4Map = {
 var timerValue = 10;
 
 function preload() {
-
+  
 }
 
 
@@ -108,8 +106,8 @@ function createTree(x,y) {
   let tree = {
   x: x,
   y: y,
-  cutDown: false,
-  image: undefined
+  size: 50,
+  cutDown: false
 };
   return tree;
 }
@@ -128,8 +126,8 @@ function createHealth(x,y) {
   let health = {
   x: x,
   y: y,
-  hit: false,
-  image: undefined
+  size: 25,
+  hit: false
 };
   return health;
 }
@@ -579,9 +577,11 @@ function displayTree(tree) {
   // Check if the tree is still available to be cut down
   if (!tree.cutDown) {
     // Display the tree as its position and with its size
-    tree.image = loadImage('assets/images/Tree_02.png');
-    imageMode(CENTER);
-     image(tree.image, tree.x, tree.y);
+    push();
+    fill(10, 204, 65);
+    rectMode(CENTER);
+    square(tree.x, tree.y, tree.size);
+    pop();
   }
 }
 // Checks if the user overlaps the tree object and cuts it down if so
@@ -638,9 +638,10 @@ function displayHeart(health) {
   // Check if the heart is still available to behit/removed
   if (!health.hit) {
     // Display the heart as its position and with its size
-    health.image = loadImage('assets/images/Heart_Full.png');
-    imageMode(CENTER);
-     image(health.image, health.x, health.y);
+    push();
+    fill(242, 70, 108);
+    square(health.x, health.y, health.size);
+    pop();
   }
 }
 
