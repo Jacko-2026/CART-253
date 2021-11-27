@@ -10,6 +10,11 @@ author, and this description to match your project!
 
 let state = 'title';
 
+let userBack;
+let userFront;
+let userLeft;
+let userRight;
+
 let user = {
 x: 400,
 y: 700,
@@ -17,7 +22,8 @@ vx: 0,
 vy: 0,
 inputThreshold: 0,
 speed: 5,
-size: 50
+size: 50,
+image: userBack
 }
 let unit = 50;  // For user movement
 
@@ -81,6 +87,11 @@ var timerValue = 10;
 function preload() {
   treeImage1 = loadImage('assets/images/Tree.png');
   healthImage1 = loadImage('assets/images/Heart_Full.png');
+
+  userBack = loadImage('assets/images/user/Back.gif');
+  userFront = loadImage('assets/images/user/Front.gif');
+  userLeft = loadImage('assets/images/user/Side(Left).gif');
+  userRight = loadImage('assets/images/user/Side(Right).gif');
 }
 
 
@@ -571,11 +582,8 @@ function timeIt() {
 
 // Draw the user as a circle
 function displayUser() {
-  push();
-  ellipseMode(CENTER);
-  fill(255);
-  ellipse(user.x, user.y, user.size);
-  pop();
+  imageMode(CENTER);
+   image(user.image, user.x, user.y);
 }
 
 // Draw the tree
