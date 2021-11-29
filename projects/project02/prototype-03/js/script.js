@@ -92,6 +92,8 @@ function preload() {
   userFront = loadImage('assets/images/user/Front.gif');
   userLeft = loadImage('assets/images/user/Side(Left).gif');
   userRight = loadImage('assets/images/user/Side(Right).gif');
+
+  user.image = userBack;
 }
 
 
@@ -788,24 +790,28 @@ function moveUser() {
       if (user.inputThreshold >= 1) {
         user.x += unit;
         user.inputThreshold = 0;
+        user.image = userRight;
       }
   if (keyIsDown(LEFT_ARROW)) {
       user.inputThreshold += 0.05;}
       if (user.inputThreshold >= 1) {
         user.x += -unit;
         user.inputThreshold = 0;
+        user.image = userLeft;
       }
   if (keyIsDown(UP_ARROW)) {
       user.inputThreshold += 0.05;}
       if (user.inputThreshold >= 1) {
         user.y += -unit;
         user.inputThreshold = 0;
+        user.image = userBack;
       }
   if (keyIsDown(DOWN_ARROW)) {
       user.inputThreshold += 0.05;}
       if (user.inputThreshold >= 1) {
         user.y += unit;
         user.inputThreshold = 0;
+        user.image = userFront;
       }
 }
 // User Movement 02
