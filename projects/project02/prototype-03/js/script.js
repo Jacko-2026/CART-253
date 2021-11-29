@@ -10,6 +10,13 @@ author, and this description to match your project!
 
 let state = 'title';
 
+let mouseImage1;
+let mouse = {
+  x: 0,
+  y: 0,
+  image: mouseImage1
+}
+
 let userBack;
 let userFront;
 let userLeft;
@@ -26,8 +33,6 @@ size: 50,
 image: userBack
 }
 let unit = 50;  // For user movement
-
-let mouse;
 
 let health1;
 let health2;
@@ -86,12 +91,16 @@ var timerValue = 10;
 
 function preload() {
   treeImage1 = loadImage('assets/images/Tree.png');
+
   healthImage1 = loadImage('assets/images/Heart_Full.png');
 
   userBack = loadImage('assets/images/user/Back.gif');
   userFront = loadImage('assets/images/user/Front.gif');
   userLeft = loadImage('assets/images/user/Side(Left).gif');
   userRight = loadImage('assets/images/user/Side(Right).gif');
+
+  mouseImage1 = loadImage('assets/images/Mouse.png');
+  mouse.image = mouseImage1;
 
   user.image = userBack;
 }
@@ -207,6 +216,22 @@ function draw() {
   checkTree(tree2);
 
   checkTruck();
+
+  moveMouse();
+  displayMouse();
+}
+
+
+function moveMouse() {
+  mouse.x = mouseX;
+  mouse.y = mouseY;
+
+  mouse.x = constrain(mouse.x, 0, width);
+  mouse.y = constrain(mouse.y, 0, height);
+}
+function displayMouse() {
+  imageMode(CENTER);
+   image(mouse.image, mouse.x, mouse.y);
 }
 
 
