@@ -55,13 +55,14 @@ let treeImage1;
 // Enemies (Snakes)
 let snake1;
 let snake2;
+let snakeImage;
 
+let truckImage;
 let truck = {
-  x: 600,
+  x: 700,
   y: 700,
-  w: 170,
-  h: 80,
-  size: 100
+  size: 100,
+  image: truckImage
 }
 
 // Levels on the levels Map (for level selection)
@@ -92,17 +93,21 @@ var timerValue = 10;
 function preload() {
   treeImage1 = loadImage('assets/images/Tree.png');
 
+  snakeImage = loadImage('assets/images/02/Snake.gif');
+
   healthImage1 = loadImage('assets/images/Heart_Full.png');
+
+  truckImage = loadImage('assets/images/02/Truck_01.png');
+  truck.image = truckImage;
 
   userBack = loadImage('assets/images/user/Back.gif');
   userFront = loadImage('assets/images/user/Front.gif');
   userLeft = loadImage('assets/images/user/Side(Left).gif');
   userRight = loadImage('assets/images/user/Side(Right).gif');
+  user.image = userBack;
 
   mouseImage1 = loadImage('assets/images/Mouse.png');
   mouse.image = mouseImage1;
-
-  user.image = userBack;
 }
 
 
@@ -146,7 +151,8 @@ function createSnake(x,y) {
   vx: 0,
   vy: 0,
   speed: 6,
-  size: 75
+  size: 75,
+  image: snakeImage
 };
   return snake;
 }
@@ -634,11 +640,8 @@ function checkTree(tree) {
 }
 // Draw the enemy
 function displaySnake(snake) {
-  push();
-  rectMode(CENTER);
-  fill(219,235,52);
-  rect(snake.x, snake.y, 150, 25);
-  pop();
+  imageMode(CENTER);
+   image(snake.image, snake.x, snake.y);
 }
 function checkSnake(snake) {
   let dEnemy = dist(user.x, user.y, snake.x, snake.y);
@@ -683,10 +686,8 @@ function displayHeart(health) {
 
 // Draw the truck
 function displayTruck() {
-  push();
-  fill(140, 0, 26);
-  rect(truck.x, truck.y, truck.w, truck.h);
-  pop();
+  imageMode(CENTER);
+   image(truck.image, truck.x, truck.y);
 }
 function checkTruck() {
   if (keyIsDown(69)) {
