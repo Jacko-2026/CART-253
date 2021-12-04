@@ -88,7 +88,9 @@ let level4Map = {
 }
 
 // Timer
-var timerValue = 10;
+let timerValue = 10;
+
+let cuttingMusic, walkingMusic, truckMusic;
 
 function preload() {
   treeImage1 = loadImage('assets/images/Tree.png');
@@ -108,6 +110,12 @@ function preload() {
 
   mouseImage1 = loadImage('assets/images/Mouse.png');
   mouse.image = mouseImage1;
+
+  // Music
+ soundFormats('wav');
+  cuttingMusic = loadSound('assets/sounds/Wood');
+  walkingMusic = loadSound('assets/sounds/Walk');
+  truckMusic = loadSound('assets/sounds/Truck');
 }
 
 
@@ -586,6 +594,7 @@ function mousePressed() {
   }
   if (state === 'levelVic') {
     state = 'levelsMap';
+    truckMusic.play();
   }
 }
 
@@ -635,6 +644,7 @@ function checkTree(tree) {
     if (dTree < user.size / 2 + tree.size / 2) {
       tree.cutDown = true;
       unit = 25
+      cuttingMusic.play();
     }
   }
 }
@@ -817,6 +827,7 @@ function moveUser() {
         user.x += unit;
         user.inputThreshold = 0;
         user.image = userRight;
+        walkingMusic.play();
       }
   if (keyIsDown(LEFT_ARROW)) {
       user.inputThreshold += 0.05;}
@@ -824,6 +835,7 @@ function moveUser() {
         user.x += -unit;
         user.inputThreshold = 0;
         user.image = userLeft;
+        walkingMusic.play();
       }
   if (keyIsDown(UP_ARROW)) {
       user.inputThreshold += 0.05;}
@@ -831,6 +843,7 @@ function moveUser() {
         user.y += -unit;
         user.inputThreshold = 0;
         user.image = userBack;
+        walkingMusic.play();
       }
   if (keyIsDown(DOWN_ARROW)) {
       user.inputThreshold += 0.05;}
@@ -838,6 +851,7 @@ function moveUser() {
         user.y += unit;
         user.inputThreshold = 0;
         user.image = userFront;
+        walkingMusic.play();
       }
 }
 // User Movement 02
@@ -907,7 +921,13 @@ function keyPressed() {
  else if (keyCode === 109) {
    timerValue = 1000;
  }
- else if (keyCode === 73) {
 
+ else if (keyCode === 73) {
+   push();
+   textSize(64);
+   fill(200,100,100);
+   textAlign(CENTER,CENTER);
+   text('[HOWDY]',width/2,height/2);
+   pop();
  }
 }
