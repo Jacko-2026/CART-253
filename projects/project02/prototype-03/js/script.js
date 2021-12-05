@@ -14,6 +14,7 @@ let mouseImage1;
 let mouse = {
   x: 0,
   y: 0,
+  size: 5,
   image: mouseImage1
 }
 
@@ -43,6 +44,43 @@ let healthBar = (
   health1, health2, health3, health4, health5
 );
 let healthImage1;
+
+let goldImage;
+let goldAmount = 0;
+let gold = {
+  x:750,
+  y:35,
+  size: 15,
+  image: goldImage
+}
+
+let antidoteImage;
+let antidoteImage2;
+let antidoteAmount = 0;
+let antidote = {
+  x:100,
+  y:150,
+  size: 50,
+  image: antidoteImage
+}
+let knifeImage;
+let knifeImage2;
+let knifeAmount = 0;
+let knife = {
+  x:400,
+  y:150,
+  size: 50,
+  image: knifeImage
+}
+let trapImage;
+let trapImage2;
+let trapAmount = 0;
+let trap = {
+  x:700,
+  y:150,
+  size: 50,
+  image: trapImage
+}
 
 let tree1;
 let tree2;
@@ -98,6 +136,19 @@ function preload() {
   snakeImage = loadImage('assets/images/02/Snake.gif');
 
   healthImage1 = loadImage('assets/images/Heart_Full.png');
+
+  goldImage = loadImage('assets/images/02/Gold.png');
+  gold.image = goldImage;
+
+  antidoteImage = loadImage('assets/images/02/Antidote.png');
+  antidoteImage2 = loadImage('assets/images/02/Antidote copy.png');
+  antidote.image = antidoteImage;
+  knifeImage = loadImage('assets/images/02/Knife.png');
+  knifeImage2 = loadImage('assets/images/02/Knife copy.png');
+  knife.image = knifeImage;
+  trapImage = loadImage('assets/images/02/Trap.png');
+  trapImage2 = loadImage('assets/images/02/Trap copy.png');
+  trap.image = trapImage;
 
   truckImage = loadImage('assets/images/02/Truck_01.png');
   truck.image = truckImage;
@@ -160,6 +211,7 @@ function createSnake(x,y) {
   vy: 0,
   speed: 6,
   size: 75,
+  dead: false,
   image: snakeImage
 };
   return snake;
@@ -181,6 +233,9 @@ function draw() {
   // Screens/States
   if (state === 'title') {
     title();
+  }
+  else if (state === 'shop') {
+    shop();
   }
   else if (state === 'tutPart1') {
     tutPart1();
@@ -262,6 +317,42 @@ function title() {
     state = 'tutPart1';
   }
 }
+
+function shop() {
+  push();
+  textSize(100);
+  fill(200,100,100);
+  textAlign(CENTER,CENTER);
+  text('[SHOP]',width/2,height/2);
+  pop();
+
+  displayGold();
+
+// Items
+  displayAntidote();
+  displayKnife();
+  displayTrap();
+
+// Antidote Price
+  push();
+  textSize(35);
+  fill(200,100,100);
+  text('10',80,310);
+  pop();
+// Knife Price
+  push();
+  textSize(35);
+  fill(200,100,100);
+  text('15',380,310);
+  pop();
+// Trap Price
+  push();
+  textSize(35);
+  fill(200,100,100);
+  text('5',675,310);
+  pop();
+}
+
 function tutPart1() {
   push();
   textSize(25);
@@ -347,6 +438,10 @@ function level1() {
   displayHeart(health4);
   displayHeart(health5);
 
+// Display Gold
+  displayGold();
+  checkGold();
+
 // Display Truck
   displayTruck();
 
@@ -358,6 +453,22 @@ function level1() {
   }
   if (timerValue == 0) {
     state = 'levelGameOver';
+  }
+
+  if (antidoteAmount >0) {
+    antidote.image = antidoteImage2;
+    imageMode(CENTER);
+    image(antidote.image, 25,760);
+  }
+  if (knifeAmount >0) {
+    knife.image = knifeImage2;
+    imageMode(CENTER);
+    image(knife.image, 75,760);
+  }
+  if (trapAmount >0) {
+    trap.image = trapImage2;
+    imageMode(CENTER);
+    image(trap.image, 125,760);
   }
 }
 function level2() {
@@ -385,6 +496,10 @@ function level2() {
   displayHeart(health4);
   displayHeart(health5);
 
+// Display Gold
+  displayGold();
+  checkGold();
+
 // Display Truck
   displayTruck();
 
@@ -399,6 +514,22 @@ function level2() {
   if (timerValue == 0) {
     state = 'levelGameOver';
   }
+
+    if (antidoteAmount >0) {
+      antidote.image = antidoteImage2;
+      imageMode(CENTER);
+      image(antidote.image, 25,760);
+    }
+    if (knifeAmount >0) {
+      knife.image = knifeImage2;
+      imageMode(CENTER);
+      image(knife.image, 75,760);
+    }
+    if (trapAmount >0) {
+      trap.image = trapImage2;
+      imageMode(CENTER);
+      image(trap.image, 125,760);
+    }
 }
 function level3() {
   push();
@@ -442,6 +573,10 @@ function level3() {
   displayHeart(health4);
   displayHeart(health5);
 
+// Display Gold
+  displayGold();
+  checkGold();
+
 // Display Truck
   displayTruck();
 
@@ -456,6 +591,22 @@ function level3() {
   if (timerValue == 0) {
     state = 'levelGameOver';
   }
+
+    if (antidoteAmount >0) {
+      antidote.image = antidoteImage2;
+      imageMode(CENTER);
+      image(antidote.image, 25,760);
+    }
+    if (knifeAmount >0) {
+      knife.image = knifeImage2;
+      imageMode(CENTER);
+      image(knife.image, 75,760);
+    }
+    if (trapAmount >0) {
+      trap.image = trapImage2;
+      imageMode(CENTER);
+      image(trap.image, 125,760);
+    }
 }
 function level4() {
   push();
@@ -512,6 +663,10 @@ function level4() {
   displayHeart(health4);
   displayHeart(health5);
 
+// Display Gold
+  displayGold();
+  checkGold();
+
 // Display Truck
   displayTruck();
 
@@ -526,6 +681,22 @@ function level4() {
   if (timerValue == 0) {
     state = 'levelGameOver';
   }
+
+      if (antidoteAmount >0) {
+        antidote.image = antidoteImage2;
+        imageMode(CENTER);
+        image(antidote.image, 25,760);
+      }
+      if (knifeAmount >0) {
+        knife.image = knifeImage2;
+        imageMode(CENTER);
+        image(knife.image, 75,760);
+      }
+      if (trapAmount >0) {
+        trap.image = trapImage2;
+        imageMode(CENTER);
+        image(trap.image, 125,760);
+      }
 }
 
 // Victory screen shown after every level (Once it's completed properly)
@@ -579,6 +750,10 @@ function levelsMap() {
   text('[MAP]',width/2,height/2);
   pop();
 
+// Display Gold
+  displayGold();
+
+// Level Selection
     displayLevel1();
     displayLevel2();
     displayLevel3();
@@ -595,6 +770,27 @@ function mousePressed() {
   if (state === 'levelVic') {
     state = 'levelsMap';
     truckMusic.play();
+  }
+// Shop (Buying Items)
+  let dMouse = dist(mouse.x, mouse.y, gold.x, gold.y);
+  if (dMouse < mouse.size / 2 + gold.size / 2) {
+    state = 'shop';
+  }
+
+  let dAntidote = dist(mouse.x, mouse.y, antidote.x, antidote.y);
+  if ((dAntidote < mouse.size / 2 + antidote.size / 2) && (goldAmount > 9)) {
+    goldAmount -= 10;
+    antidoteAmount += 1;
+  }
+  let dKnife = dist(mouse.x, mouse.y, knife.x, knife.y);
+  if ((dKnife < mouse.size / 2 + knife.size / 2) && (goldAmount > 14)) {
+    goldAmount -= 15;
+    knifeAmount += 1;
+  }
+  let dTrap = dist(mouse.x, mouse.y, trap.x, trap.y);
+  if ((dTrap < mouse.size / 2 + trap.size / 2) && (goldAmount > 4)) {
+    goldAmount -= 5;
+    trapAmount += 1;
   }
 }
 
@@ -682,6 +878,40 @@ function checkSnake(snake) {
       state = 'levelHealthOut';
     }
   }
+  if ((dEnemy < user.size / 2 + snake.size / 2) && (antidoteAmount >0)) {
+    health1.hit = false;
+    health2.hit = false;
+    health3.hit = false;
+    health4.hit = false;
+    health5.hit = false;
+    user.x = 400;
+    user.y = 700;
+    antidoteAmount -= 1;
+  }
+  let dEnemy1 = dist(user.x, user.y, snake1.x, snake1.y);
+  let dEnemy2 = dist(user.x, user.y, snake2.x, snake2.y);
+  if ((dEnemy1 < user.size / 2 + snake1.size / 2) && (knifeAmount >0)) {
+    snake1.dead = true;
+    health1.hit = false;
+    health2.hit = false;
+    health3.hit = false;
+    health4.hit = false;
+    health5.hit = false;
+    user.x = 400;
+    user.y = 700;
+    knifeAmount -= 1;
+  }
+  if ((dEnemy2 < user.size / 2 + snake2.size / 2) && (knifeAmount >0)) {
+    snake2.dead = true;
+    health1.hit = false;
+    health2.hit = false;
+    health3.hit = false;
+    health4.hit = false;
+    health5.hit = false;
+    user.x = 400;
+    user.y = 700;
+    knifeAmount -= 1;
+  }
 }
 
 // Draw the heart
@@ -692,6 +922,45 @@ function displayHeart(health) {
     imageMode(CENTER);
      image(health.image, health.x, health.y);
   }
+}
+
+// Draw the gold
+function displayGold(){
+  imageMode(CENTER);
+   image(gold.image, gold.x, gold.y);
+
+   push();
+   textSize(20);
+   fill(200,100,100);
+   text(goldAmount,700,45);
+   pop();
+}
+// Check the amount of gold
+function checkGold(){
+  if ((tree1.cutDown == true || tree2.cutDown == true) && (unit === 50)) {
+    goldAmount += 5;
+  }
+  if ((tree1.cutDown == true && tree2.cutDown == true) && (unit === 50)) {
+    goldAmount += 5;
+  }
+}
+
+function displayAntidote(){
+  antidote.image = antidoteImage;
+  imageMode(CENTER);
+   image(antidote.image, antidote.x, antidote.y);
+}
+
+function displayKnife(){
+  knife.image = knifeImage;
+  imageMode(CENTER);
+   image(knife.image, knife.x, knife.y);
+}
+
+function displayTrap(){
+  trap.image = trapImage;
+  imageMode(CENTER);
+   image(trap.image, trap.x, trap.y);
 }
 
 // Draw the truck
@@ -861,9 +1130,8 @@ function moveUser() {
 }
 
 
-
-// Cheat Codes (For ease of movement between states during development)
 function keyPressed() {
+  // Cheat Codes (For ease of movement between states during development)
   if (keyCode === 49) {
    state = 'level1';
    tree1.x = 50
@@ -911,6 +1179,7 @@ function keyPressed() {
   health4.hit = false;
   health5.hit = false;
  }
+ // Full Health Cheat Code
  else if (keyCode === 107) {
   health1.hit = false;
   health2.hit = false;
@@ -918,8 +1187,13 @@ function keyPressed() {
   health4.hit = false;
   health5.hit = false;
  }
+ // Max Timer Cheat Code
  else if (keyCode === 109) {
    timerValue = 1000;
+ }
+ // Add Gold Cheat Code
+ else if (keyCode === 111) {
+   goldAmount += 5;
  }
 
  else if (keyCode === 73) {
@@ -929,5 +1203,10 @@ function keyPressed() {
    textAlign(CENTER,CENTER);
    text('[HOWDY]',width/2,height/2);
    pop();
+ }
+
+// Shop Menu (For Buying Items)
+ else if ((keyCode === 13) && (state === 'shop')) {
+   state = 'levelsMap';
  }
 }
