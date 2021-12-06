@@ -10,6 +10,9 @@ author, and this description to match your project!
 
 let state = 'title';
 
+let iText = ``;
+let tutText = ``;
+
 let mouseImage1;
 let mouse = {
   x: 0,
@@ -230,6 +233,13 @@ function draw() {
   createCanvas(800, 800);
   background(51);
 
+  push();
+  textSize(15);
+  fill(200,100,100);
+  textAlign(LEFT);
+  text(iText,620,55);
+  pop();
+
   // Screens/States
   if (state === 'title') {
     title();
@@ -313,6 +323,13 @@ function title() {
   text('START',width/2,height/2);
   pop();
 
+  push();
+  textSize(25);
+  fill(200,100,100);
+  textAlign(CENTER,CENTER);
+  text('[PRESS "ENTER"]',width/2,725);
+  pop();
+
   if ((state === 'title') && (keyIsDown(13))) {
     state = 'tutPart1';
   }
@@ -358,13 +375,20 @@ function tutPart1() {
   textSize(25);
   fill(200,100,100);
   textAlign(LEFT);
-    text('You are a lumberjack in the year 20XX,',0,100);
+    text('You are a lumberjack in the year 19XX,',0,100);
     text('With the recent economic boom,',0,150);
-        text('Wood is in high demand to build new homes.',0,175);
-    text('You must travel further and further from the village',0,250);
-        text('To collect wood to sell.',0,275);
-    text('However, there are dangers to travelling to far out of the village,',0,325);
-    text('Beware of snakes, moose, and bears as they will attack you on sight.',0,350);
+    text('Wood is in high demand to build new homes.',0,175);
+    text('You must travel further and further from the village',0,225);
+    text('To collect wood to sell.',0,250);
+    text('However, there are dangers to travelling to far out of the village,',0,300);
+    text('Beware of snakes, moose, and bears as they will attack you on sight.',0,325);
+  pop();
+
+  push();
+  textSize(20);
+  fill(200,100,100);
+  textAlign(CENTER,CENTER);
+  text('[RIGHT-ARROW]',width/2,725);
   pop();
 
   keyReleased()
@@ -380,6 +404,20 @@ function tutPart2() {
     text('Food for your energy, tool upgrades, and so on.',0,225);
   pop();
 
+  push();
+  textSize(20);
+  fill(200,100,100);
+  textAlign(CENTER,CENTER);
+  text('[LEFT-ARROW]',width/2,725);
+  pop();
+
+  push();
+  textSize(20);
+  fill(200,100,100);
+  textAlign(CENTER,CENTER);
+  text('[LEFT-ARROW]',width/2,725);
+  pop();
+
   keyReleased()
 }
 function tutPart3() {
@@ -392,6 +430,13 @@ function tutPart3() {
     text('And use “e” as a way to interact with trees, the truck, levels, etc.',0,200);
   pop();
 
+  push();
+  textSize(20);
+  fill(200,100,100);
+  textAlign(CENTER,CENTER);
+  text('[RIGHT-ARROW]',width/2,725);
+  pop();
+
   keyReleased()
 }
 function tutPart4() {
@@ -402,6 +447,13 @@ function tutPart4() {
     text('You can press “i” at any moment',0,100);
     text('To bring up a short tutorial',0,150);
     text('If you need help.',0,200);
+  pop();
+
+  push();
+  textSize(20);
+  fill(200,100,100);
+  textAlign(CENTER,CENTER);
+  text('[CLICK TO BEGIN]',width/2,725);
   pop();
 
   keyReleased()
@@ -419,11 +471,27 @@ function keyReleased() {
 }
 
 function level1() {
+  tutText = '[USE THE "ARROW KEYS" TO MOVE]'
+  let dTree1 = dist(user.x, user.y, tree1.x, tree1.y);
+  if (dTree1 < user.size / 2 + tree1.size / 2) {
+    tutText = '[PRESS "E" TO CUT DOWN TREES]'
+  }
+  else if (tree1.cutDown === true) {
+    tutText = '[PRESS "E" NEAR THE TRUCK TO PROGRESS]'
+  }
+
   push();
   textSize(54);
   fill(200,100,100);
   textAlign(CENTER,CENTER);
   text('[LEVEL 1]',width/2,height/2);
+  pop();
+
+  push();
+  textSize(20);
+  fill(200,100,100);
+  textAlign(CENTER,CENTER);
+  text(tutText,width/2,775);
   pop();
 
   displayUser();
@@ -707,6 +775,13 @@ function levelVic() {
   textAlign(CENTER,CENTER);
   text('LEVEL COMPLETE!',width/2,height/2);
   pop();
+
+  push();
+  textSize(25);
+  fill(200,100,100);
+  textAlign(CENTER,CENTER);
+  text('[CLICK TO CONTINUE]',width/2,725);
+  pop();
 }
 // If the user runs out of time, the level ends and resets to the levelsMap
 function levelGameOver() {
@@ -748,6 +823,13 @@ function levelsMap() {
   fill(200,100,100);
   textAlign(CENTER,CENTER);
   text('[MAP]',width/2,height/2);
+  pop();
+
+  push();
+  textSize(20);
+  fill(200,100,100);
+  textAlign(CENTER,CENTER);
+  text('[PRESS "E" TO START A LEVEL]',width/2,750);
   pop();
 
 // Display Gold
@@ -1196,13 +1278,15 @@ function keyPressed() {
    goldAmount += 5;
  }
 
- else if (keyCode === 73) {
-   push();
-   textSize(64);
-   fill(200,100,100);
-   textAlign(CENTER,CENTER);
-   text('[HOWDY]',width/2,height/2);
-   pop();
+ else if ((keyCode === 73) && (iText === ``)) {
+  iText = `
+[Cut down trees (e),
+avoid enemies,
+& use the truck (ENTER)
+to progress]`;
+ }
+ else if ((keyCode === 73) && (iText === `[HOWDY]`)) {
+  iText = ``;
  }
 
 // Shop Menu (For Buying Items)
