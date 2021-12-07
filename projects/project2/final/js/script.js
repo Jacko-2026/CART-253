@@ -401,11 +401,11 @@ function shop() {
   if (dAntidote < mouse.size / 2 + antidote.size / 2) {
     shopText = '[PREVENTS SNAKE ATTACKS ONCE]'
   } else if (dKnife < mouse.size / 2 + knife.size / 2) {
-    shopText = '[KILLS AN ENEMY SNAKE WHEN ATTACKED]'
+    shopText = '[KILLS AN ENEMY SNAKES WHEN ATTACKED]'
   } else if (dTrap < mouse.size / 2 + trap.size / 2) {
-    shopText = '[STOPS AN ENEMY SNAKE IN ITS TRACKS WHEN ATTACKED]'
+    shopText = '[STOPS AN ENEMY SNAKES IN THEIR TRACKS WHEN ATTACKED]'
   } else if (dFood < mouse.size / 2 + food.size / 2) {
-    shopText = '[HEALS 1 HEART OF DAMAGE]'
+    shopText = '[RESTORES HEALTH]'
   }
 }
 
@@ -854,6 +854,8 @@ function levelGameOver() {
 
   if (keyIsDown(13)) {
     state = 'levelsMap';
+    user.x = 700;
+    user.y = 700;
   }
 }
 // If the user runs out of health, the level ends and resets to the levelsMap
@@ -913,6 +915,8 @@ function mousePressed() {
   if (state === 'levelVic') {
     state = 'levelsMap';
     truckMusic.play();
+    user.x = 700;
+    user.y = 700;
   }
   // Shop (Buying Items)
   let dMouse = dist(mouse.x, mouse.y, gold.x, gold.y);
@@ -940,13 +944,15 @@ function mousePressed() {
     goldAmount -= 5;
     foodAmount += 1;
   }
-  if ((dFood < mouse.size / 2 + food2.size / 2) && (foodAmount > 0) && (health1.hit || health2.hit || health3.hit || health4.hit || health5.hit)) {
+  let dFood2 = dist(mouse.x, mouse.y, food2.x, food2.y);
+  if ((dFood2 < mouse.size / 2 + food2.size / 2) && (foodAmount > 0) && (health1.hit || health2.hit || health3.hit || health4.hit || health5.hit)) {
     health1.hit = false;
     health2.hit = false;
     health3.hit = false;
     health4.hit = false;
     health5.hit = false;
     foodAmount -= 1;
+    unit = 50;
   }
 }
 
@@ -1048,10 +1054,8 @@ function checkSnake(snake) {
     user.y = 700;
     antidoteAmount -= 1;
   }
-  let dEnemy1 = dist(user.x, user.y, snake1.x, snake1.y);
-  let dEnemy2 = dist(user.x, user.y, snake2.x, snake2.y);
-  if ((dEnemy1 < user.size / 2 + snake1.size / 2) && (knifeAmount > 0) && (!snake1.dead)) {
-    snake1.dead = true;
+  if ((dEnemy < user.size / 2 + snake.size / 2) && (knifeAmount > 0) && (!snake.dead)) {
+    snake.dead = true;
     health1.hit = false;
     health2.hit = false;
     health3.hit = false;
@@ -1060,19 +1064,7 @@ function checkSnake(snake) {
     user.x = 400;
     user.y = 700;
     knifeAmount -= 1;
-    goldAmount += 5;
-  }
-  if ((dEnemy2 < user.size / 2 + snake2.size / 2) && (knifeAmount > 0) && (!snake2.dead)) {
-    snake2.dead = true;
-    health1.hit = false;
-    health2.hit = false;
-    health3.hit = false;
-    health4.hit = false;
-    health5.hit = false;
-    user.x = 400;
-    user.y = 700;
-    knifeAmount -= 1;
-    goldAmount += 5;
+    goldAmount += 10;
   }
 }
 
@@ -1224,6 +1216,7 @@ function displayLevel3() {
   if (keyIsDown(69)) {
     let dLevel3 = dist(user.x, user.y, level3Map.x, level3Map.y);
     if (dLevel3 < user.size / 2 + level3Map.size / 2) {
+      snake1.dead = false;
       state = 'level3'
       timerValue = 59;
       user.x = 400;
@@ -1251,6 +1244,8 @@ function displayLevel4() {
   if (keyIsDown(69)) {
     let dLevel4 = dist(user.x, user.y, level4Map.x, level4Map.y);
     if (dLevel4 < user.size / 2 + level4Map.size / 2) {
+      snake1.dead = false;
+      snake2.dead = false;
       state = 'level4'
       timerValue = 59;
       user.x = 400;
@@ -1320,6 +1315,9 @@ function keyPressed() {
     health3.hit = false;
     health4.hit = false;
     health5.hit = false;
+    user.x = 400;
+    user.y = 700;
+    user.image = userBack;
   } else if (keyCode === 50) {
     state = 'level2';
     tree1.cutDown = false;
@@ -1332,8 +1330,12 @@ function keyPressed() {
     health3.hit = false;
     health4.hit = false;
     health5.hit = false;
+    user.x = 400;
+    user.y = 700;
+    user.image = userBack;
   } else if (keyCode === 51) {
     state = 'level3';
+    snake1.dead = false;
     tree1.cutDown = false;
     tree2.cutDown = false;
     timerValue = 59;
@@ -1342,8 +1344,13 @@ function keyPressed() {
     health3.hit = false;
     health4.hit = false;
     health5.hit = false;
+    user.x = 400;
+    user.y = 700;
+    user.image = userBack;
   } else if (keyCode === 52) {
     state = 'level4';
+    snake1.dead = false;
+    snake2.dead = false;
     tree1.cutDown = false;
     tree2.cutDown = false;
     timerValue = 59;
@@ -1352,6 +1359,9 @@ function keyPressed() {
     health3.hit = false;
     health4.hit = false;
     health5.hit = false;
+    user.x = 400;
+    user.y = 700;
+    user.image = userBack;
   }
   // Full Health Cheat Code
   else if (keyCode === 107) {
@@ -1382,5 +1392,7 @@ to progress]`;
   // Shop Menu (For Buying Items)
   else if ((keyCode === 13) && (state === 'shop')) {
     state = 'levelsMap';
+    user.x = 700;
+    user.y = 700;
   }
 }
