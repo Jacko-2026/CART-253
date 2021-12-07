@@ -1224,6 +1224,7 @@ function displayLevel3() {
     let dLevel3 = dist(user.x, user.y, level3Map.x, level3Map.y);
     if (dLevel3 < user.size / 2 + level3Map.size / 2) {
       snake1.dead = false;
+      snake1.speed = 6;
       state = 'level3'
       timerValue = 59;
       user.x = 400;
@@ -1253,6 +1254,8 @@ function displayLevel4() {
     if (dLevel4 < user.size / 2 + level4Map.size / 2) {
       snake1.dead = false;
       snake2.dead = false;
+      snake1.speed = 6;
+      snake2.speed = 6;
       state = 'level4'
       timerValue = 59;
       user.x = 400;
@@ -1343,6 +1346,7 @@ function keyPressed() {
   } else if (keyCode === 51) {
     state = 'level3';
     snake1.dead = false;
+    snake1.speed = 6;
     tree1.cutDown = false;
     tree2.cutDown = false;
     timerValue = 59;
@@ -1358,6 +1362,8 @@ function keyPressed() {
     state = 'level4';
     snake1.dead = false;
     snake2.dead = false;
+    snake1.speed = 6;
+    snake2.speed = 6;
     tree1.cutDown = false;
     tree2.cutDown = false;
     timerValue = 59;
