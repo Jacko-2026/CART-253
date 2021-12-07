@@ -17,7 +17,7 @@ let mouseImage1;
 let mouse = {
   x: 0,
   y: 0,
-  size: 5,
+  size: 50,
   image: mouseImage1
 }
 
@@ -83,6 +83,15 @@ let trap = {
   y:150,
   size: 50,
   image: trapImage
+}
+let foodImage;
+let foodImage2;
+let foodAmount = 0;
+let food = {
+  x:400,
+  y:550,
+  size: 50,
+  image: foodImage
 }
 
 let tree1;
@@ -152,6 +161,9 @@ function preload() {
   trapImage = loadImage('assets/images/02/Trap.png');
   trapImage2 = loadImage('assets/images/02/Trap copy.png');
   trap.image = trapImage;
+  foodImage = loadImage('assets/images/Food.png');
+  foodImage2 = loadImage('assets/images/02/Food copy.png');
+  food.image = foodImage;
 
   truckImage = loadImage('assets/images/02/Truck_01.png');
   truck.image = truckImage;
@@ -349,6 +361,7 @@ function shop() {
   displayAntidote();
   displayKnife();
   displayTrap();
+  displayFood();
 
 // Antidote Price
   push();
@@ -367,6 +380,12 @@ function shop() {
   textSize(35);
   fill(200,100,100);
   text('5',675,310);
+  pop();
+// Food Price
+  push();
+  textSize(35);
+  fill(200,100,100);
+  text('5',390,650);
   pop();
 }
 
@@ -538,6 +557,11 @@ function level1() {
     imageMode(CENTER);
     image(trap.image, 125,760);
   }
+  if (foodAmount >0) {
+    food.image = foodImage2;
+    imageMode(CENTER);
+    image(food.image, 175,760);
+  }
 }
 function level2() {
   push();
@@ -597,6 +621,11 @@ function level2() {
       trap.image = trapImage2;
       imageMode(CENTER);
       image(trap.image, 125,760);
+    }
+    if (foodAmount >0) {
+      food.image = foodImage2;
+      imageMode(CENTER);
+      image(food.image, 175,760);
     }
 }
 function level3() {
@@ -674,6 +703,11 @@ function level3() {
       trap.image = trapImage2;
       imageMode(CENTER);
       image(trap.image, 125,760);
+    }
+    if (foodAmount >0) {
+      food.image = foodImage2;
+      imageMode(CENTER);
+      image(food.image, 175,760);
     }
 }
 function level4() {
@@ -764,6 +798,11 @@ function level4() {
         trap.image = trapImage2;
         imageMode(CENTER);
         image(trap.image, 125,760);
+      }
+      if (foodAmount >0) {
+        food.image = foodImage2;
+        imageMode(CENTER);
+        image(food.image, 175,760);
       }
 }
 
@@ -873,6 +912,14 @@ function mousePressed() {
   if ((dTrap < mouse.size / 2 + trap.size / 2) && (goldAmount > 4)) {
     goldAmount -= 5;
     trapAmount += 1;
+  }
+  let dFood = dist(mouse.x, mouse.y, food.x, food.y);
+  if ((dFood < mouse.size / 2 + food.size / 2) && (goldAmount > 4)) {
+    goldAmount -= 5;
+    foodAmount += 1;
+  }
+  if ((dFood < mouse.size / 2 + food.size / 2) && (foodAmount > 0) && (food.image === foodImage2) && (health1.hit || health2.hit || health3.hit || health4.hit || health5.hit)) {
+    foodAmount -= 1;
   }
 }
 
@@ -1043,6 +1090,11 @@ function displayTrap(){
   trap.image = trapImage;
   imageMode(CENTER);
    image(trap.image, trap.x, trap.y);
+}
+function displayFood(){
+  food.image = foodImage;
+  imageMode(CENTER);
+   image(food.image, food.x, food.y);
 }
 
 // Draw the truck
@@ -1277,7 +1329,7 @@ function keyPressed() {
  else if (keyCode === 111) {
    goldAmount += 5;
  }
-
+// Brief Tutorial
  else if ((keyCode === 73) && (iText === ``)) {
   iText = `
 [Cut down trees (e),
@@ -1288,7 +1340,6 @@ to progress]`;
  else if ((keyCode === 73) && (iText === `[HOWDY]`)) {
   iText = ``;
  }
-
 // Shop Menu (For Buying Items)
  else if ((keyCode === 13) && (state === 'shop')) {
    state = 'levelsMap';
