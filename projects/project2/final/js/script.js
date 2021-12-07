@@ -34,7 +34,7 @@ let user = {
   vy: 0,
   inputThreshold: 0,
   speed: 5,
-  size: 50,
+  size: 60,
   image: userBack
 }
 let unit = 50; // For user movement
@@ -227,7 +227,7 @@ function createSnake(x, y) {
     vx: 0,
     vy: 0,
     speed: 6,
-    size: 75,
+    size: 50,
     dead: false,
     image: snakeImage
   };
@@ -346,7 +346,7 @@ function shop() {
   text('[SHOP]', width / 2, height / 2);
   pop();
 
-shopText = '[PRESS "ENTER" TO EXIT]'
+  shopText = '[PRESS "ENTER" TO EXIT]'
   push();
   textSize(20);
   fill(200, 100, 100);
@@ -392,16 +392,13 @@ shopText = '[PRESS "ENTER" TO EXIT]'
   let dTrap = dist(mouse.x, mouse.y, trap.x, trap.y);
   let dFood = dist(mouse.x, mouse.y, food.x, food.y);
   if (dAntidote < mouse.size / 2 + antidote.size / 2) {
-shopText = '[PREVENTS SNAKE ATTACKS ONCE]'
-  }
-  else if (dKnife < mouse.size / 2 + knife.size / 2) {
-shopText = '[KILLS AN ENEMY SNAKE WHEN ATTACKED]'
-  }
-  else if (dTrap < mouse.size / 2 + trap.size / 2) {
-shopText = '[STOPS AN ENEMY SNAKE IN ITS TRACKS WHEN ATTACKED]'
-  }
-  else if (dFood < mouse.size / 2 + food.size / 2) {
-shopText = '[HEALS 1 HEART OF DAMAGE]'
+    shopText = '[PREVENTS SNAKE ATTACKS ONCE]'
+  } else if (dKnife < mouse.size / 2 + knife.size / 2) {
+    shopText = '[KILLS AN ENEMY SNAKE WHEN ATTACKED]'
+  } else if (dTrap < mouse.size / 2 + trap.size / 2) {
+    shopText = '[STOPS AN ENEMY SNAKE IN ITS TRACKS WHEN ATTACKED]'
+  } else if (dFood < mouse.size / 2 + food.size / 2) {
+    shopText = '[HEALS 1 HEART OF DAMAGE]'
   }
 }
 
@@ -512,8 +509,7 @@ function level1() {
   let dTree1 = dist(user.x, user.y, tree1.x, tree1.y);
   if (dTree1 < user.size / 2 + tree1.size / 2) {
     tutText = '[PRESS "E" TO CUT DOWN TREES]'
-  }
-  else if (tree1.cutDown === true) {
+  } else if (tree1.cutDown === true) {
     tutText = '[PRESS "E" NEAR THE TRUCK TO PROGRESS]'
   }
 
@@ -662,7 +658,6 @@ function level3() {
 
   // Display enemy
   displaySnake(snake1);
-  snake1.size = 55
   // Check if the user has been attacked by an enemy
   checkSnake(snake1);
   // Enemy movement
@@ -745,7 +740,6 @@ function level4() {
 
   // Display enemy
   displaySnake(snake1);
-  snake1.size = 55
   // Check if the user has been attacked by an enemy
   checkSnake(snake1);
   // Enemy movement
@@ -758,7 +752,6 @@ function level4() {
     snake1.y = random(200, 600);
   }
   displaySnake(snake2);
-  snake2.size = 45
   // Check if the user has been attacked by an enemy
   checkSnake(snake2);
   // Enemy movement
@@ -773,11 +766,11 @@ function level4() {
 
   // Display Trees
   displayTree(tree1);
-  tree1.x = 100
-  tree1.y = 275
+  tree1.x = 250
+  tree1.y = 175
   displayTree(tree2);
-  tree2.x = 500
-  tree2.y = 450
+  tree2.x = 600
+  tree2.y = 350
 
   // Display Hearts
   displayHeart(health1);
@@ -998,13 +991,15 @@ function checkTree(tree) {
 }
 // Draw the enemy
 function displaySnake(snake) {
-  imageMode(CENTER);
-  image(snake.image, snake.x, snake.y);
+  if (snake.dead === false) {
+    imageMode(CENTER);
+    image(snake.image, snake.x, snake.y);
+  }
 }
 
 function checkSnake(snake) {
   let dEnemy = dist(user.x, user.y, snake.x, snake.y);
-  if (dEnemy < user.size / 2 + snake.size / 2) {
+  if ((dEnemy < user.size / 2 + snake.size / 2) && (snake.dead === false)) {
     unit = 25
     if (health1.hit === false) {
       health1.hit = true;
