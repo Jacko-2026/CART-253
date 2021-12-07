@@ -998,6 +998,10 @@ function displaySnake(snake) {
 }
 
 function checkSnake(snake) {
+  if (snake.dead) {
+    return;
+  }
+
   let dEnemy = dist(user.x, user.y, snake.x, snake.y);
   if ((dEnemy < user.size / 2 + snake.size / 2) && (snake.dead === false)) {
     unit = 25
