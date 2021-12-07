@@ -94,6 +94,12 @@ let food = {
   size: 50,
   image: foodImage
 }
+let food2 = {
+  x: 175,
+  y: 760,
+  size: 50,
+  image: foodImage2
+}
 
 let tree1;
 let tree2;
@@ -165,6 +171,7 @@ function preload() {
   foodImage = loadImage('assets/images/Food.png');
   foodImage2 = loadImage('assets/images/02/Food copy.png');
   food.image = foodImage;
+  food2.image = foodImage2;
 
   truckImage = loadImage('assets/images/02/Truck_01.png');
   truck.image = truckImage;
@@ -572,9 +579,9 @@ function level1() {
     image(trap.image, 125, 760);
   }
   if (foodAmount > 0) {
-    food.image = foodImage2;
+  food2.image = foodImage2;
     imageMode(CENTER);
-    image(food.image, 175, 760);
+    image(food2.image, food2.x, food2.y);
   }
 }
 
@@ -638,9 +645,9 @@ function level2() {
     image(trap.image, 125, 760);
   }
   if (foodAmount > 0) {
-    food.image = foodImage2;
+  food2.image = foodImage2;
     imageMode(CENTER);
-    image(food.image, 175, 760);
+    image(food2.image, food2.x, food2.y);
   }
 }
 
@@ -720,9 +727,9 @@ function level3() {
     image(trap.image, 125, 760);
   }
   if (foodAmount > 0) {
-    food.image = foodImage2;
+  food2.image = foodImage2;
     imageMode(CENTER);
-    image(food.image, 175, 760);
+    image(food2.image, food2.x, food2.y);
   }
 }
 
@@ -814,9 +821,9 @@ function level4() {
     image(trap.image, 125, 760);
   }
   if (foodAmount > 0) {
-    food.image = foodImage2;
+  food2.image = foodImage2;
     imageMode(CENTER);
-    image(food.image, 175, 760);
+    image(food2.image, food2.x, food2.y);
   }
 }
 
@@ -933,7 +940,12 @@ function mousePressed() {
     goldAmount -= 5;
     foodAmount += 1;
   }
-  if ((dFood < mouse.size / 2 + food.size / 2) && (foodAmount > 0) && (food.image === foodImage2) && (health1.hit || health2.hit || health3.hit || health4.hit || health5.hit)) {
+  if ((dFood < mouse.size / 2 + food2.size / 2) && (foodAmount > 0) && (health1.hit || health2.hit || health3.hit || health4.hit || health5.hit)) {
+    health1.hit = false;
+    health2.hit = false;
+    health3.hit = false;
+    health4.hit = false;
+    health5.hit = false;
     foodAmount -= 1;
   }
 }
