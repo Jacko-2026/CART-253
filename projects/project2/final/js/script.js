@@ -991,7 +991,7 @@ function checkTree(tree) {
 }
 // Draw the enemy
 function displaySnake(snake) {
-  if (snake.dead === false) {
+  if (!snake.dead) {
     imageMode(CENTER);
     image(snake.image, snake.x, snake.y);
   }
@@ -1034,7 +1034,7 @@ function checkSnake(snake) {
   }
   let dEnemy1 = dist(user.x, user.y, snake1.x, snake1.y);
   let dEnemy2 = dist(user.x, user.y, snake2.x, snake2.y);
-  if ((dEnemy1 < user.size / 2 + snake1.size / 2) && (knifeAmount > 0)) {
+  if ((dEnemy1 < user.size / 2 + snake1.size / 2) && (knifeAmount > 0) && (!snake1.dead)) {
     snake1.dead = true;
     health1.hit = false;
     health2.hit = false;
@@ -1044,8 +1044,9 @@ function checkSnake(snake) {
     user.x = 400;
     user.y = 700;
     knifeAmount -= 1;
+    goldAmount += 5;
   }
-  if ((dEnemy2 < user.size / 2 + snake2.size / 2) && (knifeAmount > 0)) {
+  if ((dEnemy2 < user.size / 2 + snake2.size / 2) && (knifeAmount > 0) && (!snake2.dead)) {
     snake2.dead = true;
     health1.hit = false;
     health2.hit = false;
@@ -1055,6 +1056,7 @@ function checkSnake(snake) {
     user.x = 400;
     user.y = 700;
     knifeAmount -= 1;
+    goldAmount += 5;
   }
 }
 
