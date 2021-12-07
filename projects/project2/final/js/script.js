@@ -12,6 +12,7 @@ let state = 'title';
 
 let iText = ``;
 let tutText = ``;
+let shopText = '';
 
 let mouseImage1;
 let mouse = {
@@ -345,6 +346,14 @@ function shop() {
   text('[SHOP]', width / 2, height / 2);
   pop();
 
+shopText = '[PRESS "ENTER" TO EXIT]'
+  push();
+  textSize(20);
+  fill(200, 100, 100);
+  textAlign(CENTER, CENTER);
+  text(shopText, width / 2, 750);
+  pop();
+
   displayGold();
 
   // Items
@@ -377,6 +386,23 @@ function shop() {
   fill(200, 100, 100);
   text('5', 390, 650);
   pop();
+
+  let dAntidote = dist(mouse.x, mouse.y, antidote.x, antidote.y);
+  let dKnife = dist(mouse.x, mouse.y, knife.x, knife.y);
+  let dTrap = dist(mouse.x, mouse.y, trap.x, trap.y);
+  let dFood = dist(mouse.x, mouse.y, food.x, food.y);
+  if (dAntidote < mouse.size / 2 + antidote.size / 2) {
+shopText = '[PREVENTS SNAKE ATTACKS ONCE]'
+  }
+  else if (dKnife < mouse.size / 2 + knife.size / 2) {
+shopText = '[KILLS AN ENEMY SNAKE WHEN ATTACKED]'
+  }
+  else if (dTrap < mouse.size / 2 + trap.size / 2) {
+shopText = '[STOPS AN ENEMY SNAKE IN ITS TRACKS WHEN ATTACKED]'
+  }
+  else if (dFood < mouse.size / 2 + food.size / 2) {
+shopText = '[HEALS 1 HEART OF DAMAGE]'
+  }
 }
 
 function tutPart1() {
@@ -486,7 +512,8 @@ function level1() {
   let dTree1 = dist(user.x, user.y, tree1.x, tree1.y);
   if (dTree1 < user.size / 2 + tree1.size / 2) {
     tutText = '[PRESS "E" TO CUT DOWN TREES]'
-  } else if (tree1.cutDown === true) {
+  }
+  else if (tree1.cutDown === true) {
     tutText = '[PRESS "E" NEAR THE TRUCK TO PROGRESS]'
   }
 
