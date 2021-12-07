@@ -1066,6 +1066,13 @@ function checkSnake(snake) {
     knifeAmount -= 1;
     goldAmount += 10;
   }
+  if ((dEnemy < user.size / 2 + snake.size / 2) && (trapAmount > 0) && (!snake.dead)) {
+    snake.speed = 0;
+    user.x = 400;
+    user.y = 700;
+    trapAmount -= 1;
+    goldAmount += 5;
+  }
 }
 
 // Draw the heart
