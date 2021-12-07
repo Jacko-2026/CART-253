@@ -305,12 +305,12 @@ function draw() {
   } else if (state === 'levelsMap') {
     levelsMap();
   } else if (state === 'badEnding') {
-  badEnding();
-} else if (state === 'goodEnding') {
-  goodEnding();
-} else if (state === 'neutralEnding') {
-  neutralEnding();
-}
+    badEnding();
+  } else if (state === 'goodEnding') {
+    goodEnding();
+  } else if (state === 'neutralEnding') {
+    neutralEnding();
+  }
 
   // Constrain User to Canvas
   user.x = constrain(user.x, 0, width);
@@ -598,7 +598,7 @@ function level1() {
     image(trap.image, 125, 760);
   }
   if (foodAmount > 0) {
-  food2.image = foodImage2;
+    food2.image = foodImage2;
     imageMode(CENTER);
     image(food2.image, food2.x, food2.y);
   }
@@ -664,7 +664,7 @@ function level2() {
     image(trap.image, 125, 760);
   }
   if (foodAmount > 0) {
-  food2.image = foodImage2;
+    food2.image = foodImage2;
     imageMode(CENTER);
     image(food2.image, food2.x, food2.y);
   }
@@ -746,7 +746,7 @@ function level3() {
     image(trap.image, 125, 760);
   }
   if (foodAmount > 0) {
-  food2.image = foodImage2;
+    food2.image = foodImage2;
     imageMode(CENTER);
     image(food2.image, food2.x, food2.y);
   }
@@ -820,13 +820,11 @@ function level4() {
   if ((dTruck < user.size / 2 + truck.size / 2) && (tree1.cutDown === true) && (tree2.cutDown === true) && (keyIsDown(69)) && (unit === 50)) {
     state = 'levelVic';
     // Game Endings
-    if ((badEndingTicker > 0) && (goldAmount >99)) {
+    if ((badEndingTicker > 0) && (goldAmount > 99)) {
       state = 'badEnding';
-    }
-    else if ((goodEndingTicker > 0) && (badEndingTicker < 1) && (goldAmount >99)) {
+    } else if ((goodEndingTicker > 0) && (badEndingTicker < 1) && (goldAmount > 99)) {
       state = 'goodEnding';
-    }
-    else if ((neutralEndingTicker > 0) && (badEndingTicker < 1) && (goodEndingTicker < 1) && (goldAmount >99)) {
+    } else if ((neutralEndingTicker > 0) && (badEndingTicker < 1) && (goodEndingTicker < 1) && (goldAmount > 99)) {
       state = 'neutralEnding';
     }
   }
@@ -850,7 +848,7 @@ function level4() {
     image(trap.image, 125, 760);
   }
   if (foodAmount > 0) {
-  food2.image = foodImage2;
+    food2.image = foodImage2;
     imageMode(CENTER);
     image(food2.image, food2.x, food2.y);
   }
@@ -958,6 +956,7 @@ function badEnding() {
 
   keyReleased()
 }
+
 function goodEnding() {
   push();
   textSize(25);
@@ -968,7 +967,7 @@ function goodEnding() {
   text('nature’s beauty and leave it untouched,', 0, 150);
   text('large sections of forests are maintained as parks and give some hope', 0, 175);
   text('to keep the green alive as the cold blue steel', 0, 200);
-    text('of development looms over the future.', 0, 225);
+  text('of development looms over the future.', 0, 225);
   pop();
 
   push();
@@ -980,6 +979,7 @@ function goodEnding() {
 
   keyReleased()
 }
+
 function neutralEnding() {
   push();
   textSize(25);
@@ -1499,14 +1499,13 @@ function keyPressed() {
 use items in the shop,
 & complete level 4
 to win]`;
-} else if ((keyCode === 73) && (state === 'levelsMap') && (iText === `
+  } else if ((keyCode === 73) && (state === 'levelsMap') && (iText === `
 [Earn 100 Gold,
 use items in the shop,
 & complete level 4
 to win]`)) {
     iText = ``;
-  }
-  else if ((keyCode === 73) && (iText === ``)) {
+  } else if ((keyCode === 73) && (iText === ``)) {
     iText = `
 [Cut down trees (e),
 avoid enemies,
