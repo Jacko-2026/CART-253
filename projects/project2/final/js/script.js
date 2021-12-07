@@ -14,6 +14,10 @@ let iText = ``;
 let tutText = ``;
 let shopText = '';
 
+let badEndingTicker = 0;
+let neutralEndingTicker = 0;
+let goodEndingTicker = 0;
+
 let mouseImage1;
 let mouse = {
   x: 0,
@@ -26,6 +30,11 @@ let userBack;
 let userFront;
 let userLeft;
 let userRight;
+
+let truckBack;
+let truckFront;
+let truckLeft;
+let truckRight;
 
 let user = {
   x: 400,
@@ -173,6 +182,10 @@ function preload() {
   food.image = foodImage;
   food2.image = foodImage2;
 
+  truckBack = loadImage('assets/images/truck/Back.png');
+  truckFront = loadImage('assets/images/truck/Front.png');
+  truckLeft = loadImage('assets/images/truck/Side(Left).png');
+  truckRight = loadImage('assets/images/truck/Side(Right).png');
   truckImage = loadImage('assets/images/02/Truck_01.png');
   truck.image = truckImage;
 
@@ -291,7 +304,13 @@ function draw() {
     levelHealthOut();
   } else if (state === 'levelsMap') {
     levelsMap();
-  }
+  } else if (state === 'badEnding') {
+  badEnding();
+} else if (state === 'goodEnding') {
+  goodEnding();
+} else if (state === 'neutralEnding') {
+  neutralEnding();
+}
 
   // Constrain User to Canvas
   user.x = constrain(user.x, 0, width);
@@ -308,7 +327,6 @@ function draw() {
   moveMouse();
   displayMouse();
 }
-
 
 function moveMouse() {
   mouse.x = mouseX;
@@ -353,14 +371,6 @@ function shop() {
   text('[SHOP]', width / 2, height / 2);
   pop();
 
-  shopText = '[PRESS "ENTER" TO EXIT]'
-  push();
-  textSize(20);
-  fill(200, 100, 100);
-  textAlign(CENTER, CENTER);
-  text(shopText, width / 2, 750);
-  pop();
-
   displayGold();
 
   // Items
@@ -394,6 +404,8 @@ function shop() {
   text('5', 390, 650);
   pop();
 
+  shopText = '[PRESS "ENTER" TO EXIT]'
+
   let dAntidote = dist(mouse.x, mouse.y, antidote.x, antidote.y);
   let dKnife = dist(mouse.x, mouse.y, knife.x, knife.y);
   let dTrap = dist(mouse.x, mouse.y, trap.x, trap.y);
@@ -401,12 +413,19 @@ function shop() {
   if (dAntidote < mouse.size / 2 + antidote.size / 2) {
     shopText = '[PREVENTS SNAKE ATTACKS ONCE]'
   } else if (dKnife < mouse.size / 2 + knife.size / 2) {
-    shopText = '[KILLS AN ENEMY SNAKES WHEN ATTACKED]'
+    shopText = '[KILLS ENEMY SNAKES WHEN ATTACKED]'
   } else if (dTrap < mouse.size / 2 + trap.size / 2) {
-    shopText = '[STOPS AN ENEMY SNAKES IN THEIR TRACKS WHEN ATTACKED]'
+    shopText = '[STOPS ENEMY SNAKES IN THEIR TRACKS WHEN ATTACKED]'
   } else if (dFood < mouse.size / 2 + food.size / 2) {
     shopText = '[RESTORES HEALTH]'
   }
+
+  push();
+  textSize(20);
+  fill(200, 100, 100);
+  textAlign(CENTER, CENTER);
+  text(shopText, width / 2, 750);
+  pop();
 }
 
 function tutPart1() {
@@ -800,6 +819,16 @@ function level4() {
   let dTruck = dist(user.x, user.y, truck.x, truck.y);
   if ((dTruck < user.size / 2 + truck.size / 2) && (tree1.cutDown === true) && (tree2.cutDown === true) && (keyIsDown(69)) && (unit === 50)) {
     state = 'levelVic';
+    // Game Endings
+    if ((badEndingTicker > 0) && (goldAmount >99)) {
+      state = 'badEnding';
+    }
+    else if ((goodEndingTicker > 0) && (badEndingTicker < 1) && (goldAmount >99)) {
+      state = 'goodEnding';
+    }
+    else if ((neutralEndingTicker > 0) && (badEndingTicker < 1) && (goodEndingTicker < 1) && (goldAmount >99)) {
+      state = 'neutralEnding';
+    }
   }
   if (timerValue == 0) {
     state = 'levelGameOver';
@@ -904,6 +933,73 @@ function levelsMap() {
   displayLevel3();
   displayLevel4();
   displayUser2();
+}
+
+function badEnding() {
+  push();
+  textSize(25);
+  fill(200, 100, 100);
+  textAlign(LEFT);
+  text('Due to deforestation and the ever growing expansion of the city,', 0, 100);
+  text('Mother Nature takes her leave and the once lush greenery', 0, 125);
+  text('you had called your home/office has now turned brown with decay.', 0, 150);
+  text('With the forest gone and it’s inhabitants extinct,', 0, 225);
+  text('so is your job.', 0, 250);
+  text('Hopefully there will be space for you in the new city.', 0, 300);
+  text('Feeling lucky?', 0, 350);
+  pop();
+
+  push();
+  textSize(20);
+  fill(200, 100, 100);
+  textAlign(CENTER, CENTER);
+  text('[BAD ENDING]', width / 2, 725);
+  pop();
+
+  keyReleased()
+}
+function goodEnding() {
+  push();
+  textSize(25);
+  fill(200, 100, 100);
+  textAlign(LEFT);
+  text('Though the city’s ever increasing growth is still for some concern,', 0, 100);
+  text('thanks to the efforts of those who care to maintain mother', 0, 125);
+  text('nature’s beauty and leave it untouched,', 0, 150);
+  text('large sections of forests are maintained as parks and give some hope', 0, 175);
+  text('to keep the green alive as the cold blue steel', 0, 200);
+    text('of development looms over the future.', 0, 225);
+  pop();
+
+  push();
+  textSize(20);
+  fill(200, 100, 100);
+  textAlign(CENTER, CENTER);
+  text('[GOOD ENDING]', width / 2, 725);
+  pop();
+
+  keyReleased()
+}
+function neutralEnding() {
+  push();
+  textSize(25);
+  fill(200, 100, 100);
+  textAlign(LEFT);
+  text('While the city continues to expand, the forests dwindle in size.', 0, 100);
+  text('Mere pockets of greenery are all that’s left of once lush meadows.', 0, 150);
+  text('Though battered and bruised, Mother Nature continues to survive', 0, 200);
+  text('with the animals of the forest now calling the streets and gutters', 0, 225);
+  text('their homes and the neighbouring garbage heaps their source of food.', 0, 250);
+  pop();
+
+  push();
+  textSize(20);
+  fill(200, 100, 100);
+  textAlign(CENTER, CENTER);
+  text('[NEUTRAL ENDING]', width / 2, 725);
+  pop();
+
+  keyReleased()
 }
 
 
@@ -1053,6 +1149,7 @@ function checkSnake(snake) {
     user.x = 400;
     user.y = 700;
     antidoteAmount -= 1;
+    goodEndingTicker += 1;
   }
   if ((dEnemy < user.size / 2 + snake.size / 2) && (knifeAmount > 0) && (!snake.dead)) {
     snake.dead = true;
@@ -1065,6 +1162,8 @@ function checkSnake(snake) {
     user.y = 700;
     knifeAmount -= 1;
     goldAmount += 10;
+    badEndingTicker += 1;
+    goodEndingTicker -= 1;
   }
   if ((dEnemy < user.size / 2 + snake.size / 2) && (trapAmount > 0) && (!snake.dead)) {
     snake.speed = 0;
@@ -1072,6 +1171,7 @@ function checkSnake(snake) {
     user.y = 700;
     trapAmount -= 1;
     goldAmount += 5;
+    neutralEndingTicker += 1;
   }
 }
 
@@ -1393,13 +1493,30 @@ function keyPressed() {
     goldAmount += 5;
   }
   // Brief Tutorial
+  else if ((keyCode === 73) && (state === 'levelsMap') && (iText === ``)) {
+    iText = `
+[Earn 100 Gold,
+use items in the shop,
+& complete level 4
+to win]`;
+} else if ((keyCode === 73) && (state === 'levelsMap') && (iText === `
+[Earn 100 Gold,
+use items in the shop,
+& complete level 4
+to win]`)) {
+    iText = ``;
+  }
   else if ((keyCode === 73) && (iText === ``)) {
     iText = `
 [Cut down trees (e),
 avoid enemies,
 & use the truck (ENTER)
 to progress]`;
-  } else if ((keyCode === 73) && (iText === `[HOWDY]`)) {
+  } else if ((keyCode === 73) && (iText === `
+[Cut down trees (e),
+avoid enemies,
+& use the truck (ENTER)
+to progress]`)) {
     iText = ``;
   }
   // Shop Menu (For Buying Items)
