@@ -820,11 +820,11 @@ function level4() {
   if ((dTruck < user.size / 2 + truck.size / 2) && (tree1.cutDown === true) && (tree2.cutDown === true) && (keyIsDown(69)) && (unit === 50)) {
     state = 'levelVic';
     // Game Endings
-    if ((badEndingTicker > 0) && (goldAmount > 99)) {
+    if ((badEndingTicker > 0) && (goldAmount > 49)) {
       state = 'badEnding';
-    } else if ((goodEndingTicker > 0) && (badEndingTicker < 1) && (goldAmount > 99)) {
+    } else if ((goodEndingTicker > 0) && (badEndingTicker < 1) && (goldAmount > 49)) {
       state = 'goodEnding';
-    } else if ((neutralEndingTicker > 0) && (badEndingTicker < 1) && (goodEndingTicker < 1) && (goldAmount > 99)) {
+    } else if ((neutralEndingTicker > 0) && (badEndingTicker < 1) && (goodEndingTicker < 1) && (goldAmount > 49)) {
       state = 'neutralEnding';
     }
   }
@@ -1495,12 +1495,12 @@ function keyPressed() {
   // Brief Tutorial
   else if ((keyCode === 73) && (state === 'levelsMap') && (iText === ``)) {
     iText = `
-[Earn 100 Gold,
+[Earn 50 Gold,
 use items in the shop,
 & complete level 4
 to win]`;
   } else if ((keyCode === 73) && (state === 'levelsMap') && (iText === `
-[Earn 100 Gold,
+[Earn 50 Gold,
 use items in the shop,
 & complete level 4
 to win]`)) {
